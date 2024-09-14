@@ -1,4 +1,4 @@
-name: Deploy Site
+name: Deploy
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - docker-compose.yml
 
 jobs:
-  docker:
+  deploy:
     strategy:
       matrix:
         arch: [ "ubuntu-latest" ]
@@ -28,5 +28,5 @@ jobs:
       - name: Deploy to Dokku
         uses: dokku/github-action@master
         with:
-          git_remote_url: "ssh://dokku@10.10.3.28:22/rainnny-club"
+          git_remote_url: "ssh://dokku@10.10.3.28:22/pulseapp-www"
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
