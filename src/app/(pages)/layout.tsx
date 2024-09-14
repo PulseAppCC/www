@@ -12,13 +12,13 @@ const inter: NextFont = Inter({ subsets: ["latin"] });
  * The metadata for this app.
  */
 export const metadata: Metadata = {
-    title: "PulseApp",
+    title: "Pulse App",
     description:
         "A lightweight service monitoring solution for tracking the availability of whatever service your heart desires!",
     openGraph: {
         images: [
             {
-                url: "https://pulseapp.cc/logo.png",
+                url: "https://pulseapp.cc/media/logo.png",
                 width: 128,
                 height: 128,
             },
