@@ -2,18 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --background: #ffffff;
-    --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
-}
-
 body {
     color: var(--foreground);
     background: var(--background);
@@ -86,9 +74,32 @@ body {
 @layer base {
     * {
         @apply border-border;
+
+        /* Scrollbar (Firefox) */
+        scrollbar-color: hsl(var(--accent)) hsl(var(--background));
+        scrollbar-width: thin;
     }
 
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+/* Scrollbar (Chrome & Safari) */
+@layer base {
+    ::-webkit-scrollbar {
+        @apply w-1.5;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-inherit;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-accent rounded-3xl;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-opacity-80;
     }
 }

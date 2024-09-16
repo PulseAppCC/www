@@ -1,6 +1,11 @@
 {
-  "name": "pulseapp",
-  "version": "0.1.0",
+  "name": "pulse-www",
+  "version": "1.0.0",
+  "author": {
+    "name": "Braydon (Rainnny)",
+    "url": "https://rainnny.club",
+    "email": "braydonrainnny@gmail.com"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",

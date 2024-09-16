@@ -1,10 +1,10 @@
-import { ReactElement } from "react";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { ReactElement } from "react";
 
 const Greeting = (): ReactElement => (
-    <div className="h-screen flex flex-col gap-4 justify-center items-center">
+    <div className="h-screen flex flex-col gap-4 justify-center text-center items-center">
         <div className="flex flex-col gap-2 items-center select-none pointer-events-none">
             {/* Logo */}
             <Image
@@ -27,7 +27,7 @@ const Greeting = (): ReactElement => (
         {/* GitHub */}
         <Link href="https://github.com/PulseAppCC" target="_blank">
             <Button
-                className="hover:bg-transparent"
+                className="hover:bg-transparent hover:opacity-75 transition-all transform-gpu"
                 size="icon"
                 variant="ghost"
             >

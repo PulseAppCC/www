@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import "../style/globals.css";
+import "@/app/styles/globals.css";
 import { ReactElement, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { NextFont } from "next/dist/compiled/@next/font";
@@ -41,14 +41,16 @@ const RootLayout = ({
     children: ReactNode;
 }>): ReactElement => (
     <html lang="en">
-        <body className={cn(inter.className, "antialiased")}>
-            <ThemeProvider
-                attribute="class"
-                defaultTheme="dark"
-                enableSystem
-                disableTransitionOnChange
-            >
-                {children}
+        <body className={cn(inter.className, "scroll-smooth antialiased")}>
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+                <div
+                    style={{
+                        background:
+                            "linear-gradient(to top, hsla(240, 6%, 10%, 0.5), hsl(var(--background)))",
+                    }}
+                >
+                    {children}
+                </div>
             </ThemeProvider>
         </body>
     </html>
