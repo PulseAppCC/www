@@ -13,22 +13,18 @@ type OAuthProviderProps = {
     name: string;
 
     /**
-     * The icon of this provider.
-     */
-    icon: string;
-
-    /**
      * The link to login with this provider.
      */
     link: string;
 };
 
-const OAuthProvider = ({
-    name,
-    icon,
-    link,
-}: OAuthProviderProps): ReactElement => (
-    <Link href={link}>
+/**
+ * A button to login with an OAuth provider.
+ *
+ * @return the provider jsx
+ */
+const OAuthProvider = ({ name, link }: OAuthProviderProps): ReactElement => (
+    <Link className="cursor-not-allowed" href={link}>
         <Button
             className="h-12 bg-zinc-800/85 text-white border border-zinc-700/35 hover:bg-muted hover:opacity-75 transition-all transform-gpu"
             disabled
@@ -37,7 +33,7 @@ const OAuthProvider = ({
                 className="w-10 h-10"
                 as="div"
                 bgColor="transparent"
-                network={icon}
+                network={name.toLowerCase()}
             />
             <span>{name}</span>
         </Button>

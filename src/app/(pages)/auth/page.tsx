@@ -1,12 +1,17 @@
 "use client";
 
 import { ReactElement } from "react";
-import Branding from "@/components/branding";
 import OAuthProvider from "@/components/auth/oauth-provider";
 import { Separator } from "@/components/ui/separator";
 import AuthForm from "@/components/auth/auth-form";
 import { motion } from "framer-motion";
+import Greeting from "@/components/auth/greeting";
 
+/**
+ * The page to authenticate with.
+ *
+ * @return the auth page
+ */
 const AuthPage = (): ReactElement => (
     <main className="min-h-screen flex justify-center items-center">
         <motion.div
@@ -15,26 +20,27 @@ const AuthPage = (): ReactElement => (
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.4 }}
         >
-            <h1 className="text-3xl font-bold select-none pointer-events-none">
-                Good Evening,
-            </h1>
+            <Greeting />
             <OAuthProviders />
-            <Separator className="-mb-1" />
+            <div className="mx-auto mb-1 flex gap-3 items-center select-none pointer-events-none">
+                <Separator className="w-28" />
+                <h1 className="opacity-65 leading-none">or</h1>
+                <Separator className="w-28" />
+            </div>
             <AuthForm />
         </motion.div>
-        <Branding className="absolute left-5 bottom-5 opacity-60" size="sm" />
     </main>
 );
 
+/**
+ * The OAuth providers to login with.
+ *
+ * @return the providers jsx
+ */
 const OAuthProviders = (): ReactElement => (
-    <div className="flex flex-col gap-2">
-        <p className="opacity-50 select-none pointer-events-none">
-            Continue with a third party...
-        </p>
-        <div className="flex gap-2.5">
-            <OAuthProvider name="GitHub" icon="github" link="#" />
-            <OAuthProvider name="Google" icon="google" link="#" />
-        </div>
+    <div className="mt-1 flex gap-2.5">
+        <OAuthProvider name="GitHub" link="#" />
+        <OAuthProvider name="Google" link="#" />
     </div>
 );
 

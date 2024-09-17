@@ -4,7 +4,7 @@ import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const brandingVariants = cva(
-    "relative hover:opacity-75 transition-all transform-gpu",
+    "relative hover:opacity-75 select-none transition-all transform-gpu",
     {
         variants: {
             size: {
