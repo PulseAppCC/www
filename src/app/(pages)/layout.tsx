@@ -5,6 +5,7 @@ import { ReactElement, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { NextFont } from "next/dist/compiled/@next/font";
 import { ThemeProvider } from "@/components/theme-provider";
+import { CookiesProvider } from "next-client-cookies/server";
 
 const inter: NextFont = Inter({ subsets: ["latin"] });
 
@@ -46,10 +47,10 @@ const RootLayout = ({
                 <div
                     style={{
                         background:
-                            "linear-gradient(to top, hsla(240, 6%, 10%, 0.5), hsl(var(--background)))",
+                            "linear-gradient(to top, hsla(240, 6%, 10%, 0.7), hsl(var(--background)))",
                     }}
                 >
-                    {children}
+                    <CookiesProvider>{children}</CookiesProvider>
                 </div>
             </ThemeProvider>
         </body>
