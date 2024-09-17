@@ -19,30 +19,29 @@ import { Cookies, useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { motion } from "framer-motion";
-import Turnstile from "react-turnstile";
+import Turnstile, { useTurnstile } from "react-turnstile";
+import { TurnstileObject } from "turnstile-types";
 
 /**
  * Define the form schemas for the various stages.
  */
 const EmailSchema = z.object({
-    email: z.string().email("Must be a valid email address"),
+    email: z.string().email("Must be a valid email address."),
 });
 
 const RegisterSchema = z.object({
-    email: z.string().email("Must be a valid email address"),
+    email: z.string().email("Must be a valid email address."),
     username: z.string(),
     password: z.string(),
     passwordConfirmation: z.string(),
-    // captchaResponse: z.string(),
 });
 
 const LoginSchema = z.object({
     email: z.union([
-        z.string().email("Must be a valid email address"),
-        z.string({ message: "Must be a valid username" }),
+        z.string().email("Must be a valid email address."),
+        z.string({ message: "Must be a valid username." }),
     ]),
     password: z.string(),
-    // captchaResponse: z.string(),
 });
 
 /**
@@ -65,6 +64,7 @@ const AuthForm = (): ReactElement => {
         undefined
     );
     const [error, setError] = useState<string | undefined>(undefined);
+    const turnstile: TurnstileObject = useTurnstile();
     const cookies: Cookies = useCookies();
     const router: AppRouterInstance = useRouter();
 
@@ -118,7 +118,12 @@ const AuthForm = (): ReactElement => {
                       },
             });
             setError(error?.message ?? undefined);
-            if (!error) {
+
+            // Reset the captcha if auth fails
+            if (error) {
+                turnstile.reset();
+            } else {
+                // Otherwise store the session and redirect to the dashboard
                 cookies.set("session", JSON.stringify(data), {
                     expires:
                         ((data?.expires as number) - Date.now()) / 86_400_000,
@@ -212,21 +217,30 @@ const AuthForm = (): ReactElement => {
                 onVerify={(token: string) => setCaptchaResponse(token)}
             />
 
-            {/* Errors */}
-            {error && <p className="text-red-500">{error}</p>}
+            {/* Display the global error if it exists, otherwise show the first field error */}
+            <p className="-mt-2 pb-0.5 text-red-500">
+                {error
+                    ? error
+                    : Object.values(errors).find((err: any) => err?.message) &&
+                      Object.values(errors)
+                          .find((err: any) => err?.message)
+                          ?.message?.toString()}
+            </p>
 
             {/* Submit Form */}
             <Button
-                className="h-11 flex gap-2 items-center bg-zinc-800/75 text-white border border-zinc-700/35 hover:bg-zinc-800/75 hover:opacity-75 transition-all transform-gpu group"
+                className="h-11 flex gap-2.5 items-center bg-zinc-800/75 text-white border border-zinc-700/35 hover:bg-zinc-800/75 hover:opacity-75 transition-all transform-gpu group"
                 type="submit"
                 disabled={loading}
             >
                 {loading && <ArrowPathIcon className="w-4 h-4 animate-spin" />}
-                {stage === "email"
-                    ? "Continue"
-                    : stage === "register"
-                      ? "Register"
-                      : "Login"}
+                <span className="-translate-y-0.5">
+                    {stage === "email"
+                        ? "Continue"
+                        : stage === "register"
+                          ? "Register"
+                          : "Login"}
+                </span>
                 {!loading && <AnimatedRightChevron />}
             </Button>
         </form>
