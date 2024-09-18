@@ -14,6 +14,7 @@ WORKDIR /usr/src/app
 COPY --from=depends /usr/src/app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
+RUN --mount=type=bind,target=/config,from=www cp /config/.env ./.env
 
 RUN bun run build
 
@@ -33,6 +34,7 @@ COPY --from=builder --chown=nextjs:nextjs /usr/src/app/.next ./.next
 COPY --from=builder --chown=nextjs:nextjs /usr/src/app/public ./public
 COPY --from=builder --chown=nextjs:nextjs /usr/src/app/next.config.mjs ./next.config.mjs
 COPY --from=builder --chown=nextjs:nextjs /usr/src/app/package.json ./package.json
+COPY --from=builder --chown=nextjs:nextjs /usr/src/app/.env ./.env
 
 ENV NODE_ENV production
 
