@@ -25,22 +25,30 @@ import { TurnstileObject } from "turnstile-types";
 /**
  * Define the form schemas for the various stages.
  */
+const buildEmailInput = (allowEmpty: boolean) =>
+    z
+        .string()
+        .email("Invalid email address")
+        .refine(
+            (val) => {
+                return !allowEmpty || val.length > 0;
+            },
+            { message: "Email is required" }
+        );
+
 const EmailSchema = z.object({
-    email: z.string().email("Must be a valid email address."),
+    email: buildEmailInput(false),
 });
 
 const RegisterSchema = z.object({
-    email: z.string().email("Must be a valid email address."),
+    email: buildEmailInput(true),
     username: z.string(),
     password: z.string(),
     passwordConfirmation: z.string(),
 });
 
 const LoginSchema = z.object({
-    email: z.union([
-        z.string().email("Must be a valid email address."),
-        z.string({ message: "Must be a valid username." }),
-    ]),
+    email: buildEmailInput(true),
     password: z.string(),
 });
 
