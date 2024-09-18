@@ -2,7 +2,7 @@
 
 import { ReactElement } from "react";
 import { UserState } from "@/app/store/user-store-props";
-import { User } from "@/app/types/user";
+import { User } from "@/app/types/user/user";
 import { useUserContext } from "@/app/provider/user-provider";
 
 const DashboardPage = (): ReactElement => {

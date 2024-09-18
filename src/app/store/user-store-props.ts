@@ -1,7 +1,7 @@
 import { createStore } from "zustand";
-import { User } from "@/app/types/user";
+import { User } from "@/app/types/user/user";
 import { createContext } from "react";
-import { Session } from "@/app/types/session";
+import { Session } from "@/app/types/user/session";
 
 export const UserContext = createContext<UserStore | null>(null);
 

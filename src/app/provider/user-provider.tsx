@@ -13,14 +13,16 @@ import createUserStore, {
     UserState,
     UserStore,
 } from "@/app/store/user-store-props";
-import { User } from "@/app/types/user";
+import { User } from "@/app/types/user/user";
 import { Cookies, useCookies } from "next-client-cookies";
-import { Session } from "@/app/types/session";
+import { Session } from "@/app/types/user/session";
 import { apiRequest } from "@/lib/api";
 import { StoreApi, useStore } from "zustand";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import DashboardLoader from "@/components/dashboard/loader";
+import { hasFlag } from "@/lib/user";
+import { UserFlag } from "@/app/types/user/user-flag";
 
 /**
  * The provider that will provide user context to children.
@@ -33,6 +35,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     const [authorized, setAuthorized] = useState<boolean>(false);
     const cookies: Cookies = useCookies();
     const router: AppRouterInstance = useRouter();
+    const path: string = usePathname();
     if (!storeRef.current) {
         storeRef.current = createUserStore();
     }
@@ -59,9 +62,20 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
             router.push("/auth");
             return;
         }
-        storeRef.current?.getState().authorize(session, data as User);
+        // User successfully authenticated
+        const user: User = data as User;
+        storeRef.current?.getState().authorize(session, user);
         setAuthorized(true);
+
+        // User has not yet completed onboarding
+        if (
+            !hasFlag(user, UserFlag.COMPLETED_ONBOARDING) &&
+            !path.startsWith("/dashboard/onboarding")
+        ) {
+            router.push("/dashboard/onboarding");
+        }
     }, [cookies, router]);
+
     useEffect(() => {
         fetchUser();
     }, [fetchUser]);

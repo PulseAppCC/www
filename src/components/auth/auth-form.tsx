@@ -14,7 +14,7 @@ import {
     LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import { apiRequest } from "@/lib/api";
-import { Session } from "@/app/types/session";
+import { Session } from "@/app/types/user/session";
 import { Cookies, useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";

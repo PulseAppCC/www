@@ -1,4 +1,4 @@
-import { Session } from "@/app/types/session";
+import { Session } from "@/app/types/user/session";
 import { ApiError } from "@/app/types/api-error";
 
 type ApiRequestProps = {
@@ -8,14 +8,14 @@ type ApiRequestProps = {
     endpoint: string;
 
     /**
-     * The session to authenticate with, if any.
-     */
-    session?: Session | undefined;
-
-    /**
      * The method of the request to make.
      */
     method?: string | undefined;
+
+    /**
+     * The session to authenticate with, if any.
+     */
+    session?: Session | undefined;
 
     /**
      * The optional body of the request.
