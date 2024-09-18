@@ -74,7 +74,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         ) {
             router.push("/dashboard/onboarding");
         }
-    }, [cookies, router]);
+    }, [cookies, router, path]);
 
     useEffect(() => {
         fetchUser();

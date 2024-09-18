@@ -14,13 +14,16 @@ import {
     LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import { apiRequest } from "@/lib/api";
-import { Session } from "@/app/types/user/session";
 import { Cookies, useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { motion } from "framer-motion";
 import Turnstile, { useTurnstile } from "react-turnstile";
 import { TurnstileObject } from "turnstile-types";
+import { UserAuthResponse } from "@/app/types/user/response/user-auth-response";
+import { hasFlag } from "@/lib/user";
+import { UserFlag } from "@/app/types/user/user-flag";
+import { User } from "@/app/types/user/user";
 
 /**
  * Define the form schemas for the various stages.
@@ -28,24 +31,31 @@ import { TurnstileObject } from "turnstile-types";
 const buildEmailInput = (allowEmpty: boolean) =>
     z
         .string()
-        .email("Invalid email address")
+        .email("That email address is invalid.")
         .refine(
             (val) => {
                 return !allowEmpty || val.length > 0;
             },
-            { message: "Email is required" }
+            { message: "An email address is required." }
         );
 
 const EmailSchema = z.object({
     email: buildEmailInput(false),
 });
 
-const RegisterSchema = z.object({
-    email: buildEmailInput(true),
-    username: z.string(),
-    password: z.string(),
-    passwordConfirmation: z.string(),
-});
+const RegisterSchema = z
+    .object({
+        email: buildEmailInput(true),
+        username: z
+            .string()
+            .regex(/^[a-z0-9_.]*$/, "That username is invalid."),
+        password: z.string(),
+        passwordConfirmation: z.string(),
+    })
+    .refine((data) => data.password === data.passwordConfirmation, {
+        path: ["passwordConfirmation"],
+        message: "Your passwords do not match.",
+    });
 
 const LoginSchema = z.object({
     email: buildEmailInput(true),
@@ -108,7 +118,7 @@ const AuthForm = (): ReactElement => {
             setStage(data?.exists ? "login" : "register");
         } else {
             const registering: boolean = stage === "register";
-            const { data, error } = await apiRequest<Session>({
+            const { data, error } = await apiRequest<UserAuthResponse>({
                 endpoint: `/auth/${registering ? "register" : "login"}`,
                 method: "POST",
                 body: registering
@@ -132,13 +142,18 @@ const AuthForm = (): ReactElement => {
                 turnstile.reset();
             } else {
                 // Otherwise store the session and redirect to the dashboard
-                cookies.set("session", JSON.stringify(data), {
+                cookies.set("session", JSON.stringify(data?.session), {
                     expires:
-                        ((data?.expires as number) - Date.now()) / 86_400_000,
+                        ((data?.session.expires as number) - Date.now()) /
+                        86_400_000,
                     secure: true,
                     sameSite: "lax",
                 });
-                router.push("/dashboard");
+                router.push(
+                    hasFlag(data?.user as User, UserFlag.COMPLETED_ONBOARDING)
+                        ? "/dashboard"
+                        : "/dashboard/onboarding"
+                );
                 return;
             }
         }
@@ -238,7 +253,7 @@ const AuthForm = (): ReactElement => {
 
             {/* Submit Form */}
             <Button
-                className="h-11 flex gap-2.5 items-center bg-zinc-800/75 text-white border border-zinc-700/35 hover:bg-zinc-800/75 hover:opacity-75 transition-all transform-gpu group"
+                className="h-11 flex gap-2.5 items-center text-white border border-secondary transition-all transform-gpu group"
                 type="submit"
                 disabled={loading}
             >

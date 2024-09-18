@@ -6,7 +6,6 @@ import { Separator } from "@/components/ui/separator";
 import AuthForm from "@/components/auth/auth-form";
 import { motion } from "framer-motion";
 import Greeting from "@/components/auth/greeting";
-import Footer from "@/components/auth/footer";
 
 /**
  * The page to authenticate with.
@@ -29,7 +28,6 @@ const AuthPage = (): ReactElement => (
                 <Separator className="w-28" />
             </div>
             <AuthForm />
-            <Footer />
         </motion.div>
     </main>
 );
@@ -40,7 +38,7 @@ const AuthPage = (): ReactElement => (
  * @return the providers jsx
  */
 const OAuthProviders = (): ReactElement => (
-    <div className="mt-1 flex gap-2.5">
+    <div className="mt-1 flex gap-2.5 justify-center">
         <OAuthProvider name="GitHub" link="#" />
         <OAuthProvider name="Google" link="#" />
     </div>

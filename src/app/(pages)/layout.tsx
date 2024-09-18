@@ -14,7 +14,10 @@ const inter: NextFont = Inter({ subsets: ["latin"] });
  * The metadata for this app.
  */
 export const metadata: Metadata = {
-    title: "Pulse App",
+    title: {
+        default: "Pulse App",
+        template: "%s • Pulse App",
+    },
     description:
         "A lightweight service monitoring solution for tracking the availability of whatever service your heart desires!",
     openGraph: {
@@ -31,7 +34,7 @@ export const metadata: Metadata = {
     },
 };
 export const viewport: Viewport = {
-    themeColor: "#DC2626",
+    themeColor: "#A855F7",
 };
 
 /**
@@ -48,7 +51,7 @@ const RootLayout = ({
                 <div
                     style={{
                         background:
-                            "linear-gradient(to top, hsla(240, 6%, 10%, 0.7), hsl(var(--background)))",
+                            "linear-gradient(to top, hsl(240, 6%, 10%), hsl(var(--background)))",
                     }}
                 >
                     <CookiesProvider>
