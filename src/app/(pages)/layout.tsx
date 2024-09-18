@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { NextFont } from "next/dist/compiled/@next/font";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CookiesProvider } from "next-client-cookies/server";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter: NextFont = Inter({ subsets: ["latin"] });
 
@@ -50,7 +51,10 @@ const RootLayout = ({
                             "linear-gradient(to top, hsla(240, 6%, 10%, 0.7), hsl(var(--background)))",
                     }}
                 >
-                    <CookiesProvider>{children}</CookiesProvider>
+                    <CookiesProvider>
+                        {children}
+                        <Toaster />
+                    </CookiesProvider>
                 </div>
             </ThemeProvider>
         </body>
