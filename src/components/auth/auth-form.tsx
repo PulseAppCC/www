@@ -147,6 +147,7 @@ const AuthForm = (): ReactElement => {
                     className="pl-8 rounded-lg"
                     type="email"
                     placeholder="bob@example.com"
+                    disabled={stage !== "email"}
                     {...register("email")}
                 />
             </div>

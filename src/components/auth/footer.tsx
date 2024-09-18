@@ -18,7 +18,7 @@ const Footer = (): ReactElement => (
 
 const DocumentLink = ({ name, link }: { name: string; link: string }) => (
     <Link
-        className="text-primary hover:opacity-85 transition-all transform-gpu"
+        className="text-red-500 hover:opacity-85 transition-all transform-gpu"
         href={link}
     >
         {name}
