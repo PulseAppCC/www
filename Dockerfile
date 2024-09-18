@@ -15,7 +15,6 @@ COPY --from=depends /usr/src/app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN --mount=type=bind,target=/config,from=www cp /config/.env ./.env
-
 RUN bun run build
 
 
