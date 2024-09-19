@@ -21,11 +21,30 @@ import {
     UserIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useRouter } from "next/navigation";
+import { Cookies, useCookies } from "next-client-cookies";
 
+/**
+ * The menu to manage the user.
+ *
+ * @return the menu jsx
+ */
 const UserMenu = (): ReactElement => {
     const user: User | undefined = useUserContext(
         (state: UserState) => state.user
     );
+    const cookies: Cookies = useCookies();
+    const router: AppRouterInstance = useRouter();
+
+    /**
+     * Logout the user.
+     */
+    const logout = () => {
+        cookies.remove("session");
+        router.push("/");
+    };
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
@@ -40,7 +59,10 @@ const UserMenu = (): ReactElement => {
 
                 {/* Logout */}
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="gap-2.5 text-red-500">
+                <DropdownMenuItem
+                    className="gap-2.5 text-red-500 cursor-pointer"
+                    onClick={logout}
+                >
                     <ArrowLeftEndOnRectangleIcon className="w-5 h-5" />
                     <span>Logout</span>
                 </DropdownMenuItem>
