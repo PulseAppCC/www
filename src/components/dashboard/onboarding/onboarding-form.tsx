@@ -25,7 +25,9 @@ import { User } from "@/app/types/user/user";
  * Define the various stages of onboarding.
  */
 const organizationName = z.string().min(2, "You need a longer org name!!!");
-const organizationSlug = z.string().min(2, "You need a longer org slug!!!");
+const organizationSlug = z
+    .string()
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Invalid slug.");
 const stages: OnboardingStage[] = [
     {
         name: "Create a new organization",
@@ -174,7 +176,16 @@ const OnboardingForm = (): ReactElement => {
                                     className="pl-[7.25rem] rounded-lg"
                                     placeholder={organizationSlugPreview}
                                     defaultValue={organizationSlugPreview}
-                                    {...register("organizationSlug")}
+                                    {...register("organizationSlug", {
+                                        onChange: (event) => {
+                                            event.target.value =
+                                                event.target.value
+                                                    .replace(/-{2,}/g, "-") // Replace multiple dashes with a single dash
+                                                    .replace(/-\s+/g, "-") // Prevent spaces after a dash
+                                                    .replace(/\s+/g, "-") // Replace spaces with dashes
+                                                    .toLowerCase();
+                                        },
+                                    })}
                                 />
                             </div>
                         </div>
