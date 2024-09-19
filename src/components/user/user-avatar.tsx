@@ -13,7 +13,7 @@ const avatarVariants = cva("relative rounded-full", {
     variants: {
         size: {
             sm: "w-6 h-6",
-            default: "w-10 h-10",
+            default: "w-11 h-11",
         },
     },
     defaultVariants: {

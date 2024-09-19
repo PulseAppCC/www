@@ -26,11 +26,11 @@ const Sidebar = (): ReactElement => {
         <nav className="w-56 px-3 py-4 h-screen flex flex-col items-center bg-zinc-900 border-r">
             {/* Header */}
             <Link
-                className="flex gap-3 items-center select-none group"
+                className="flex gap-4 items-center select-none group"
                 href="/dashboard"
             >
                 <Branding size="xs" />
-                <h1 className="text-xl font-bold group-hover:opacity-75 transition-all transform-gpu">
+                <h1 className="text-2xl font-bold group-hover:opacity-75 transition-all transform-gpu">
                     Pulse App
                 </h1>
             </Link>

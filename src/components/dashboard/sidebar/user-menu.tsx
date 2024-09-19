@@ -61,19 +61,19 @@ const MyAccount = (): ReactElement => (
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <Link href="/dashboard/user/profile">
-            <DropdownMenuItem className="gap-2.5">
+            <DropdownMenuItem className="gap-2.5 cursor-pointer">
                 <UserIcon className="w-5 h-5" />
                 <span>Profile</span>
             </DropdownMenuItem>
         </Link>
         <Link href="/dashboard/user/billing">
-            <DropdownMenuItem className="gap-2.5">
+            <DropdownMenuItem className="gap-2.5 cursor-pointer">
                 <CreditCardIcon className="w-5 h-5" />
                 <span>Billing</span>
             </DropdownMenuItem>
         </Link>
         <Link href="/dashboard/user/settings">
-            <DropdownMenuItem className="gap-2.5">
+            <DropdownMenuItem className="gap-2.5 cursor-pointer">
                 <Cog6ToothIcon className="w-5 h-5" />
                 <span>Settings</span>
             </DropdownMenuItem>

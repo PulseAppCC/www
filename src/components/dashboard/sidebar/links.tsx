@@ -10,6 +10,7 @@ import {
     ClipboardIcon,
     Cog6ToothIcon,
     FireIcon,
+    PencilSquareIcon,
     WrenchIcon,
 } from "@heroicons/react/24/outline";
 import { useOrganizationContext } from "@/app/provider/organization-provider";
@@ -36,6 +37,11 @@ const links: SidebarLink[] = [
         name: "Insights",
         icon: <ChartBarSquareIcon />,
         href: "/insights",
+    },
+    {
+        name: "Audit Logs",
+        icon: <PencilSquareIcon />,
+        href: "/audit",
     },
     {
         name: "Settings",
