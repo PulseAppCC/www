@@ -23,6 +23,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import DashboardLoader from "@/components/dashboard/loader";
 import { hasFlag } from "@/lib/user";
 import { UserFlag } from "@/app/types/user/user-flag";
+import EmailVerificationScreen from "@/components/dashboard/user/email-verification-screen";
 
 /**
  * The provider that will provide user context to children.
@@ -33,9 +34,11 @@ import { UserFlag } from "@/app/types/user/user-flag";
 const UserProvider = ({ children }: { children: ReactNode }) => {
     const storeRef = useRef<UserStore>();
     const [authorized, setAuthorized] = useState<boolean>(false);
+    const [emailVerified, setEmailVerified] = useState<boolean>(false);
     const cookies: Cookies = useCookies();
     const router: AppRouterInstance = useRouter();
     const path: string = usePathname();
+
     if (!storeRef.current) {
         storeRef.current = createUserStore();
     }
@@ -66,6 +69,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         const user: User = data as User;
         storeRef.current?.getState().authorize(session, user);
         setAuthorized(true);
+        setEmailVerified(hasFlag(user, UserFlag.EMAIL_VERIFIED));
 
         // User has not yet completed onboarding
         if (
@@ -82,6 +86,13 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
     return (
         <UserContext.Provider value={storeRef.current}>
+            {/*{authorized && emailVerified ? (*/}
+            {/*    children*/}
+            {/*) : !authorized ? (*/}
+            {/*    <DashboardLoader />*/}
+            {/*) : (*/}
+            {/*    <EmailVerificationScreen />*/}
+            {/*)}*/}
             {authorized ? children : <DashboardLoader />}
         </UserContext.Provider>
     );
