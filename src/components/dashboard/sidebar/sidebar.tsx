@@ -11,7 +11,13 @@ import { useUserContext } from "@/app/provider/user-provider";
 import { UserState } from "@/app/store/user-store";
 import { hasFlag } from "@/lib/user";
 import { UserFlag } from "@/app/types/user/user-flag";
+import UserMenu from "@/components/dashboard/sidebar/user-menu";
 
+/**
+ * The sidebar to display on the dashboard.
+ *
+ * @return the sidebar jsx
+ */
 const Sidebar = (): ReactElement => {
     const user: User | undefined = useUserContext(
         (state: UserState) => state.user
@@ -19,7 +25,10 @@ const Sidebar = (): ReactElement => {
     return hasFlag(user as User, UserFlag.COMPLETED_ONBOARDING) ? (
         <nav className="w-56 px-3 py-4 h-screen flex flex-col items-center bg-zinc-900 border-r">
             {/* Header */}
-            <Link className="flex gap-3 items-center group" href="/dashboard">
+            <Link
+                className="flex gap-3 items-center select-none group"
+                href="/dashboard"
+            >
                 <Branding size="xs" />
                 <h1 className="text-xl font-bold group-hover:opacity-75 transition-all transform-gpu">
                     Pulse App
@@ -30,7 +39,9 @@ const Sidebar = (): ReactElement => {
             {/* Content */}
             <OrganizationSelector />
             <Links />
-            <div className="mt-auto">USER</div>
+            <div className="mt-auto">
+                <UserMenu />
+            </div>
         </nav>
     ) : (
         <div />

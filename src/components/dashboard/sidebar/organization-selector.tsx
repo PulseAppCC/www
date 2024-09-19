@@ -4,7 +4,6 @@ import * as React from "react";
 import { ReactElement, useEffect, useState } from "react";
 import { ChevronsUpDownIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import InitialsAvatar from "react-initials-avatar";
 import {
     Command,
     CommandEmpty,
@@ -22,7 +21,7 @@ import { useOrganizationContext } from "@/app/provider/organization-provider";
 import { OrganizationState } from "@/app/store/organization-store";
 import { Organization } from "@/app/types/org/organization";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
+import OrganizationLogo from "@/components/org/organization-logo";
 
 /**
  * The organization selector.
@@ -84,18 +83,10 @@ const OrganizationSelector = (): ReactElement => {
                 >
                     {selected ? (
                         <div className="flex gap-2.5 items-center">
-                            <div className="relative p-0.5 w-5 h-5 rounded-full">
-                                {selected.logo ? (
-                                    <Image
-                                        className="rounded-full"
-                                        src={`${process.env.NEXT_PUBLIC_CDN_ENDPOINT}/organizations/${selected.logo}.webp`}
-                                        alt={`${selected.name}'s Logo`}
-                                        fill
-                                    />
-                                ) : (
-                                    <InitialsAvatar name={selected.name} />
-                                )}
-                            </div>
+                            <OrganizationLogo
+                                organization={selected}
+                                size="sm"
+                            />
                             {selected.name}
                         </div>
                     ) : (
@@ -114,7 +105,7 @@ const OrganizationSelector = (): ReactElement => {
                                 (organization: Organization, index: number) => (
                                     <CommandItem
                                         key={index}
-                                        className="flex justify-between"
+                                        className="flex gap-2 items-center"
                                         value={organization.name}
                                         onSelect={(currentValue: string) =>
                                             selectOrganization(
@@ -126,10 +117,14 @@ const OrganizationSelector = (): ReactElement => {
                                             )
                                         }
                                     >
+                                        <OrganizationLogo
+                                            organization={organization}
+                                            size="sm"
+                                        />
                                         {organization.name}
                                         {organization.snowflake ===
                                             selectedOrganization && (
-                                            <CheckIcon className="mr-2 w-4 h-4" />
+                                            <CheckIcon className="mx-auto w-4 h-4" />
                                         )}
                                     </CommandItem>
                                 )

@@ -15,6 +15,11 @@ export type User = {
     username: string;
 
     /**
+     * The hash to the avatar of this user, if any.
+     */
+    avatar: string | undefined;
+
+    /**
      * The tier of this user.
      */
     tier: "FREE";

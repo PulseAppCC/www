@@ -3,6 +3,9 @@ import Image from "next/image";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
+/**
+ * The variants of the branding.
+ */
 const brandingVariants = cva(
     "relative group-hover:opacity-75 hover:opacity-75 select-none transition-all transform-gpu",
     {
@@ -45,7 +48,7 @@ const Branding = ({ href, size, className }: BrandingProps) => (
         className={cn(brandingVariants({ size, className }))}
         href={href ?? "/"}
     >
-        <Image src="/media/logo.png" alt="PulseApp Logo" fill priority />
+        <Image src="/media/logo.png" alt="Pulse App Logo" fill priority />
     </Link>
 );
 export default Branding;
