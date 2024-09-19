@@ -13,10 +13,10 @@ import { User } from "@/app/types/user/user";
 import { useUserContext } from "@/app/provider/user-provider";
 import { UserState } from "@/app/store/user-store";
 import { Separator } from "@/components/ui/separator";
-import AvatarSetting from "@/components/dashboard/user/avatar-setting";
-import UsernameSetting from "@/components/dashboard/user/username-setting";
-import EmailSetting from "@/components/dashboard/user/email-setting";
-import TierSetting from "@/components/dashboard/user/tier-setting";
+import AvatarSetting from "@/components/dashboard/user/profile/avatar-setting";
+import UsernameSetting from "@/components/dashboard/user/profile/username-setting";
+import EmailSetting from "@/components/dashboard/user/profile/email-setting";
+import TierSetting from "@/components/dashboard/user/profile/tier-setting";
 
 /**
  * The user profile page.

@@ -13,6 +13,7 @@ import { User } from "@/app/types/user/user";
 import { useUserContext } from "@/app/provider/user-provider";
 import { UserState } from "@/app/store/user-store";
 import { Separator } from "@/components/ui/separator";
+import TFASetting from "@/components/dashboard/user/settings/tfa/tfa-setting";
 
 /**
  * The user settings page.
@@ -26,7 +27,7 @@ const UserSettingsPage = (): ReactElement => (
         {/* Content */}
         <div className="flex flex-col gap-5">
             <Separator className="opacity-65" />
-            Hello World
+            <TFASetting />
         </div>
     </main>
 );
