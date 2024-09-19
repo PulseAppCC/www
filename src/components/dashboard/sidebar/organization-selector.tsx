@@ -44,11 +44,21 @@ const OrganizationSelector = (): ReactElement => {
 
     // Set the selected organization
     useEffect(() => {
-        setSelected(
-            organizations.find((organization: Organization) => {
+        const toSelect: Organization | undefined = organizations.find(
+            (organization: Organization) => {
                 return organization.snowflake === selectedOrganization;
-            })
+            }
         );
+        // Update the state for this page
+        setSelected(
+            toSelect ||
+                (organizations.length > 0 ? organizations[0] : undefined)
+        );
+
+        // Update the state for all pages
+        if (!toSelect && organizations.length > 0) {
+            setSelectedOrganization(organizations[0].snowflake);
+        }
     }, [organizations, selectedOrganization]);
 
     /**
