@@ -9,4 +9,4 @@ import { UserFlag } from "@/app/types/user/user-flag";
  * @return whether the user has the flag
  */
 export const hasFlag = (user: User, flag: UserFlag): boolean =>
-    (user.flags & flag) != 0;
+    (user.flags & flag) == flag;
