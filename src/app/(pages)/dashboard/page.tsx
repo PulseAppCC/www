@@ -4,8 +4,6 @@ import { ReactElement } from "react";
 import { UserState } from "@/app/store/user-store";
 import { User } from "@/app/types/user/user";
 import { useUserContext } from "@/app/provider/user-provider";
-import { useOrganizationContext } from "@/app/provider/organization-provider";
-import { OrganizationState } from "@/app/store/organization-store";
 
 /**
  * The dashboard home page.
@@ -16,13 +14,9 @@ const DashboardPage = (): ReactElement => {
     const user: User | undefined = useUserContext(
         (state: UserState) => state.user
     );
-    const selectedOrganization: string | undefined = useOrganizationContext(
-        (state: OrganizationState) => state.selected
-    );
     return (
-        <main>
-            PulseApp Dashboard, hello {user?.email}, selected org:{" "}
-            {selectedOrganization}
+        <main className="p-4">
+            Hi there {user?.username}, welcome to Pulse App!
         </main>
     );
 };
