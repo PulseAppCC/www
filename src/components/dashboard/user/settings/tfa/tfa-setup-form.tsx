@@ -45,9 +45,7 @@ const TfaSetupForm = ({
 
     // Build the form
     const {
-        register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm({
         resolver: zodResolver(FormSchema),

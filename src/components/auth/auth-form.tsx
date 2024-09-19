@@ -24,6 +24,13 @@ import { UserAuthResponse } from "@/app/types/user/response/user-auth-response";
 import { hasFlag } from "@/lib/user";
 import { UserFlag } from "@/app/types/user/user-flag";
 import { User } from "@/app/types/user/user";
+import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSeparator,
+    InputOTPSlot,
+} from "@/components/ui/input-otp";
+import { cn } from "@/lib/utils";
 
 /**
  * Define the form schemas for the various stages.
@@ -60,6 +67,7 @@ const RegisterSchema = z
 const LoginSchema = z.object({
     email: buildEmailInput(true),
     password: z.string(),
+    pin: z.string().optional(),
 });
 
 /**
@@ -81,6 +89,10 @@ const AuthForm = (): ReactElement => {
     const [captchaResponse, setCaptchaResponse] = useState<string | undefined>(
         undefined
     );
+
+    const [borderCrossing, setBorderCrossing] = useState<boolean>(false);
+    const [tfaPin, setTfaPin] = useState<string | undefined>();
+
     const [error, setError] = useState<string | undefined>(undefined);
     const turnstile: TurnstileObject = useTurnstile();
     const cookies: Cookies = useCookies();
@@ -133,8 +145,16 @@ const AuthForm = (): ReactElement => {
                           email,
                           password,
                           captchaResponse,
+                          tfaPin: tfaPin ?? "",
                       },
             });
+
+            // Handle two-factor auth
+            if (error?.message === "BORDER_CROSSING") {
+                setBorderCrossing(true);
+                setLoading(false);
+                return;
+            }
             setError(error?.message ?? undefined);
 
             // Reset the captcha if auth fails
@@ -164,16 +184,18 @@ const AuthForm = (): ReactElement => {
     return (
         <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
             {/* Email Address */}
-            <div className="relative">
-                <EnvelopeIcon className="absolute left-2 top-[0.6rem] w-[1.15rem] h-[1.15rem]" />
-                <Input
-                    className="pl-8 rounded-lg"
-                    type="email"
-                    placeholder="bob@example.com"
-                    disabled={stage !== "email"}
-                    {...register("email")}
-                />
-            </div>
+            {!borderCrossing && (
+                <div className="relative">
+                    <EnvelopeIcon className="absolute left-2 top-[0.6rem] w-[1.15rem] h-[1.15rem]" />
+                    <Input
+                        className="pl-8 rounded-lg"
+                        type="email"
+                        placeholder="bob@example.com"
+                        disabled={stage !== "email"}
+                        {...register("email")}
+                    />
+                </div>
+            )}
 
             {/* Username */}
             {stage === "register" && (
@@ -195,7 +217,7 @@ const AuthForm = (): ReactElement => {
             )}
 
             {/* Password */}
-            {stage !== "email" && (
+            {stage !== "email" && !borderCrossing && (
                 <motion.div
                     key="password"
                     className="relative"
@@ -213,6 +235,23 @@ const AuthForm = (): ReactElement => {
                     />
                 </motion.div>
             )}
+
+            {/* TFA Pin */}
+            <div className={cn("mx-auto", !borderCrossing && "hidden")}>
+                <InputOTP maxLength={6} value={tfaPin} onChange={setTfaPin}>
+                    <InputOTPGroup>
+                        {[0, 1, 2].map((index: number) => (
+                            <InputOTPSlot key={index} index={index} />
+                        ))}
+                    </InputOTPGroup>
+                    <InputOTPSeparator />
+                    <InputOTPGroup>
+                        {[3, 4, 5].map((index: number) => (
+                            <InputOTPSlot key={index} index={index} />
+                        ))}
+                    </InputOTPGroup>
+                </InputOTP>
+            </div>
 
             {/* Password Confirmation */}
             {stage === "register" && (
