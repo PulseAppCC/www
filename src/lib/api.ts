@@ -1,5 +1,6 @@
 import { Session } from "@/app/types/user/session";
 import { ApiError } from "@/app/types/api-error";
+import { parseJson } from "@/lib/json";
 
 type ApiRequestProps = {
     /**
@@ -59,9 +60,9 @@ export const apiRequest = async <T>({
             },
         }
     );
-    const data: T = await response.json();
+    const json: any = parseJson(await response.text()); // Parse the Json response from the API
     if (response.status !== 200) {
-        return { data: undefined, error: data as ApiError };
+        return { data: undefined, error: json as ApiError };
     }
-    return { data: data as T, error: undefined };
+    return { data: json as T, error: undefined };
 };
