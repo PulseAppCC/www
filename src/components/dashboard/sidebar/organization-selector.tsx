@@ -58,7 +58,7 @@ const OrganizationSelector = (): ReactElement => {
         if (!toSelect && organizations.length > 0) {
             setSelectedOrganization(organizations[0].snowflake);
         }
-    }, [organizations, selectedOrganization]);
+    }, [organizations, selectedOrganization, setSelectedOrganization]);
 
     /**
      * Handle selecting an organization.
