@@ -11,7 +11,7 @@ const DashboardPage = (): ReactElement => {
     const user: User | undefined = useUserContext(
         (state: UserState) => state.user
     );
-    const selectedOrganization: bigint | undefined = useOrganizationContext(
+    const selectedOrganization: string | undefined = useOrganizationContext(
         (state: OrganizationState) => state.selected
     );
     return (
