@@ -3,10 +3,13 @@ import { User } from "@/app/types/user/user";
 import { createContext } from "react";
 import { Session } from "@/app/types/user/session";
 
+/**
+ * The context to provide this store.
+ */
 export const UserContext = createContext<UserStore | null>(null);
 
 /**
- * The props in the store.
+ * The props in this store.
  */
 export type UserStoreProps = {
     /**

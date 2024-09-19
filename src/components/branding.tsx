@@ -4,10 +4,11 @@ import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const brandingVariants = cva(
-    "relative hover:opacity-75 select-none transition-all transform-gpu",
+    "relative group-hover:opacity-75 hover:opacity-75 select-none transition-all transform-gpu",
     {
         variants: {
             size: {
+                xs: "w-10 h-10",
                 sm: "w-16 h-16",
                 default: "w-24 h-24",
                 lg: "w-32 h-32",
@@ -24,9 +25,14 @@ const brandingVariants = cva(
  */
 type BrandingProps = {
     /**
+     * The href to go to when clicked.
+     */
+    href?: string;
+
+    /**
      * The size of the branding.
      */
-    size?: "sm" | "default" | "lg";
+    size?: "xs" | "sm" | "default" | "lg";
 
     /**
      * The optional class name to apply to the branding.
@@ -34,8 +40,11 @@ type BrandingProps = {
     className?: string;
 };
 
-const Branding = ({ size, className }: BrandingProps) => (
-    <Link className={cn(brandingVariants({ size, className }))} href="/">
+const Branding = ({ href, size, className }: BrandingProps) => (
+    <Link
+        className={cn(brandingVariants({ size, className }))}
+        href={href ?? "/"}
+    >
         <Image src="/media/logo.png" alt="PulseApp Logo" fill />
     </Link>
 );

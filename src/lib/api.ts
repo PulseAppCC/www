@@ -42,6 +42,18 @@ export const apiRequest = async <T>({
     data: T | undefined;
     error: ApiError | undefined;
 }> => {
+    // Build the request headers
+    let headers: HeadersInit = {
+        "Content-Type": `application/${method === "POST" ? "x-www-form-urlencoded" : "json"}`,
+    };
+    if (session) {
+        headers = {
+            ...headers,
+            Authorization: `Bearer ${session.accessToken}`,
+        };
+    }
+
+    // Send the request
     const response: Response = await fetch(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}${endpoint}`,
         {
@@ -50,17 +62,12 @@ export const apiRequest = async <T>({
                 method === "POST" && body
                     ? new URLSearchParams(body)
                     : undefined,
-            headers: {
-                "Content-Type": `application/${method === "POST" ? "x-www-form-urlencoded" : "json"}`,
-                ...(session
-                    ? {
-                          Authorization: `Bearer ${session.accessToken}`,
-                      }
-                    : {}),
-            },
+            headers,
         }
     );
-    const json: any = parseJson(await response.text()); // Parse the Json response from the API
+
+    // Parse the Json response from the API
+    const json: any = parseJson(await response.text());
     if (response.status !== 200) {
         return { data: undefined, error: json as ApiError };
     }

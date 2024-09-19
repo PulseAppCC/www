@@ -15,5 +15,5 @@ export type Session = {
     /**
      * The unix time this session expires.
      */
-    expires: number;
+    expires: bigint;
 };

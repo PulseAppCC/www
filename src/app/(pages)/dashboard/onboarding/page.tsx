@@ -3,7 +3,7 @@
 import { ReactElement } from "react";
 import OnboardingForm from "@/components/dashboard/onboarding/onboarding-form";
 import { useUserContext } from "@/app/provider/user-provider";
-import { UserState } from "@/app/store/user-store-props";
+import { UserState } from "@/app/store/user-store";
 import { User } from "@/app/types/user/user";
 import { hasFlag } from "@/lib/user";
 import { UserFlag } from "@/app/types/user/user-flag";

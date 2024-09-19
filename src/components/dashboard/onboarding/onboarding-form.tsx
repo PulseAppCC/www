@@ -14,7 +14,7 @@ import { z } from "zod";
 import { motion } from "framer-motion";
 import { apiRequest } from "@/lib/api";
 import { useUserContext } from "@/app/provider/user-provider";
-import { UserState } from "@/app/store/user-store-props";
+import { UserState } from "@/app/store/user-store";
 import { Session } from "@/app/types/user/session";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";

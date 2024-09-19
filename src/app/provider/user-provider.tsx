@@ -12,7 +12,7 @@ import createUserStore, {
     UserContext,
     UserState,
     UserStore,
-} from "@/app/store/user-store-props";
+} from "@/app/store/user-store";
 import { User } from "@/app/types/user/user";
 import { Cookies, useCookies } from "next-client-cookies";
 import { Session } from "@/app/types/user/session";
