@@ -114,6 +114,7 @@ const OrganizationSelector = (): ReactElement => {
                                 (organization: Organization, index: number) => (
                                     <CommandItem
                                         key={index}
+                                        className="flex justify-between"
                                         value={organization.name}
                                         onSelect={(currentValue: string) =>
                                             selectOrganization(
@@ -125,11 +126,11 @@ const OrganizationSelector = (): ReactElement => {
                                             )
                                         }
                                     >
-                                        {selected?.snowflake ===
+                                        {organization.name}
+                                        {organization.snowflake ===
                                             selectedOrganization && (
                                             <CheckIcon className="mr-2 w-4 h-4" />
                                         )}
-                                        {organization.name}
                                     </CommandItem>
                                 )
                             )}
