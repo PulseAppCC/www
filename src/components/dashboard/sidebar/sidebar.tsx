@@ -34,7 +34,7 @@ const Sidebar = (): ReactElement => {
                     Pulse App
                 </h1>
             </Link>
-            <Separator className="w-32 my-3.5" />
+            <Separator className="w-48 my-3.5" />
 
             {/* Content */}
             <OrganizationSelector />
