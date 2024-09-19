@@ -14,7 +14,7 @@ const OnboardingPage = (): ReactElement => {
         (state: UserState) => state.user
     );
     return (
-        <main className="min-h-screen flex justify-center items-center">
+        <main className="w-full min-h-screen flex justify-center items-center">
             {hasFlag(user as User, UserFlag.COMPLETED_ONBOARDING) ? (
                 <CompletedOnboarding />
             ) : (
