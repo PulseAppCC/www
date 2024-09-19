@@ -63,7 +63,10 @@ const OrganizationLogo = ({
                 fill
             />
         ) : (
-            <InitialsAvatar name={organization.name} />
+            <InitialsAvatar
+                className="w-6 h-5 bg-muted rounded-full"
+                name={organization.name}
+            />
         )}
     </div>
 );

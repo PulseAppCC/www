@@ -63,7 +63,10 @@ const UserAvatar = ({
                 fill
             />
         ) : (
-            <InitialsAvatar name={user.username} />
+            <InitialsAvatar
+                className="w-6 h-6 bg-muted rounded-full"
+                name={user.username}
+            />
         )}
     </div>
 );
