@@ -45,7 +45,7 @@ const Branding = ({ href, size, className }: BrandingProps) => (
         className={cn(brandingVariants({ size, className }))}
         href={href ?? "/"}
     >
-        <Image src="/media/logo.png" alt="PulseApp Logo" fill />
+        <Image src="/media/logo.png" alt="PulseApp Logo" fill priority />
     </Link>
 );
 export default Branding;
