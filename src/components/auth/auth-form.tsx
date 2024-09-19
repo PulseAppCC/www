@@ -125,9 +125,16 @@ const AuthForm = (): ReactElement => {
         setLoading(true);
         if (stage === "email") {
             const { data, error } = await apiRequest<{ exists: boolean }>({
-                endpoint: `/user/exists?email=${email}`,
+                endpoint: `/user/exists`,
+                method: "POST",
+                body: { email, captchaResponse },
             });
-            setStage(data?.exists ? "login" : "register");
+            if (error) {
+                setError(error.message);
+            } else {
+                setStage(data?.exists ? "login" : "register");
+            }
+            turnstile.reset();
         } else {
             const registering: boolean = stage === "register";
             const { data, error } = await apiRequest<UserAuthResponse>({
@@ -151,8 +158,9 @@ const AuthForm = (): ReactElement => {
 
             // Handle two-factor auth
             if (error?.message === "BORDER_CROSSING") {
-                setBorderCrossing(true);
                 setLoading(false);
+                setBorderCrossing(true);
+                setError(undefined);
                 turnstile.reset();
                 return;
             }
