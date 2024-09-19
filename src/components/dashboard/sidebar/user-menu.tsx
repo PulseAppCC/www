@@ -24,6 +24,8 @@ import Link from "next/link";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
 import { Cookies, useCookies } from "next-client-cookies";
+import { Session } from "@/app/types/user/session";
+import { apiRequest } from "@/lib/api";
 
 /**
  * The menu to manage the user.
@@ -31,6 +33,9 @@ import { Cookies, useCookies } from "next-client-cookies";
  * @return the menu jsx
  */
 const UserMenu = (): ReactElement => {
+    const session: Session | undefined = useUserContext(
+        (state: UserState) => state.session
+    );
     const user: User | undefined = useUserContext(
         (state: UserState) => state.user
     );
@@ -40,7 +45,12 @@ const UserMenu = (): ReactElement => {
     /**
      * Logout the user.
      */
-    const logout = () => {
+    const logout = async () => {
+        await apiRequest<void>({
+            endpoint: "/user/logout",
+            method: "POST",
+            session,
+        });
         cookies.remove("session");
         router.push("/");
     };
