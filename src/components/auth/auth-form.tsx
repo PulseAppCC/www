@@ -153,6 +153,8 @@ const AuthForm = (): ReactElement => {
             if (error?.message === "BORDER_CROSSING") {
                 setBorderCrossing(true);
                 setLoading(false);
+                turnstile.reset();
+                ssssssssss;
                 return;
             }
             setError(error?.message ?? undefined);
