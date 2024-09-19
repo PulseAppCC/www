@@ -154,7 +154,6 @@ const AuthForm = (): ReactElement => {
                 setBorderCrossing(true);
                 setLoading(false);
                 turnstile.reset();
-                ssssssssss;
                 return;
             }
             setError(error?.message ?? undefined);
