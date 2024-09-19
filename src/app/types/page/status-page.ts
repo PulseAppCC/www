@@ -5,7 +5,7 @@ export type StatusPage = {
     /**
      * The snowflake id of this status page.
      */
-    snowflake: bigint;
+    snowflake: string;
 
     /**
      * The name of this status page.
@@ -46,5 +46,5 @@ export type StatusPage = {
      * The snowflake of the {@link Organization}
      * that owns this status page.
      */
-    orgSnowflake: boolean;
+    orgSnowflake: string;
 };

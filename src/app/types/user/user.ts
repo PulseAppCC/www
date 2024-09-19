@@ -2,7 +2,7 @@ export type User = {
     /**
      * The snowflake id of this user.
      */
-    snowflake: bigint;
+    snowflake: string;
 
     /**
      * This user's email.

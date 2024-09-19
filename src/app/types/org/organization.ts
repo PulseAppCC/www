@@ -28,7 +28,7 @@ export type Organization = {
      * The snowflake of the {@link User}
      * that owns this organization.
      */
-    ownerSnowflake: number;
+    ownerSnowflake: string;
 
     /**
      * The status pages owned by this organization.
