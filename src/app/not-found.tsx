@@ -10,7 +10,7 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
  * @return the page jsx
  */
 const NotFoundPage = (): ReactElement => (
-    <main className="min-h-screen flex justify-center items-center">
+    <main className="min-h-screen flex justify-center items-center select-none">
         <div className="flex gap-10">
             {/* Image */}
             <Image
@@ -18,11 +18,12 @@ const NotFoundPage = (): ReactElement => (
                 alt="Mike Wazowski"
                 width={128}
                 height={128}
+                draggable={false}
             />
 
             {/* Message */}
             <div className="flex flex-col justify-center">
-                <div className="flex flex-col gap-0.5">
+                <div className="flex flex-col gap-0.5 pointer-events-none">
                     <h1 className="text-3xl font-bold">Wrong Door!</h1>
                     <p className="max-w-72 text-lg opacity-75">
                         The page you were looking for could not be found.
