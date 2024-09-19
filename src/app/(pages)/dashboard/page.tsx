@@ -7,6 +7,11 @@ import { useUserContext } from "@/app/provider/user-provider";
 import { useOrganizationContext } from "@/app/provider/organization-provider";
 import { OrganizationState } from "@/app/store/organization-store";
 
+/**
+ * The dashboard home page.
+ *
+ * @return the page jsx
+ */
 const DashboardPage = (): ReactElement => {
     const user: User | undefined = useUserContext(
         (state: UserState) => state.user
