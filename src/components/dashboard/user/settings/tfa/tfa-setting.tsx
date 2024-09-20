@@ -80,9 +80,11 @@ const TFASetting = (): ReactElement => {
                         if (open) {
                             setupTfa();
                         } else if (enabledTfa) {
-                            toast(
-                                "Successfully enabled two-factor auth on your account!"
-                            );
+                            toast("Two-Factor Auth", {
+                                icon: "🎉",
+                                description:
+                                    "Successfully enabled two-factor auth on your account!",
+                            });
                             router.push("/dashboard");
                         }
                     }}
@@ -159,7 +161,7 @@ const TFASetting = (): ReactElement => {
                         {!enabledTfa && (
                             <DialogFooter className="sm:justify-center gap-1.5 text-sm opacity-75">
                                 <b>NOTE:</b>Enabling two-factor auth will log
-                                you out of all devices.
+                                you out of all other devices.
                             </DialogFooter>
                         )}
                     </DialogContent>

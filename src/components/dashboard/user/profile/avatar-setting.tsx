@@ -27,7 +27,10 @@ const AvatarSetting = (): ReactElement => {
             </div>
 
             {/* Setting */}
-            <UserAvatar user={user as User} />
+            <UserAvatar
+                className="select-none pointer-events-none"
+                user={user as User}
+            />
         </div>
     );
 };

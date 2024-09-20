@@ -26,7 +26,7 @@ const UserBillingPage = (): ReactElement => (
         {/* Content */}
         <div className="flex flex-col gap-5">
             <Separator className="opacity-65" />
-            Hello World
+            Billing
         </div>
     </main>
 );

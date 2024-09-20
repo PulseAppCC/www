@@ -47,8 +47,15 @@ const Branding = ({ href, size, className }: BrandingProps) => (
     <Link
         className={cn(brandingVariants({ size, className }))}
         href={href ?? "/"}
+        draggable={false}
     >
-        <Image src="/media/logo.png" alt="Pulse App Logo" fill priority />
+        <Image
+            src="/media/logo.png"
+            alt="Pulse App Logo"
+            fill
+            priority
+            draggable={false}
+        />
     </Link>
 );
 export default Branding;

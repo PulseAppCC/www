@@ -29,11 +29,11 @@ const TierSetting = (): ReactElement => {
 
             {/* Setting */}
             <div className="flex gap-10 items-center">
-                <span className="font-medium select-none pointer-events-none">
+                <span className="text-sm font-medium select-none pointer-events-none">
                     {capitalizeWords(user?.tier)}
                 </span>
 
-                <Link href="/public#pricing">
+                <Link href="/#pricing">
                     <Button
                         className="bg-background/30"
                         size="sm"

@@ -28,6 +28,7 @@ const Sidebar = (): ReactElement => {
             <Link
                 className="flex gap-4 items-center select-none group"
                 href="/dashboard"
+                draggable={false}
             >
                 <Branding size="xs" />
                 <h1 className="text-2xl font-bold group-hover:opacity-75 transition-all transform-gpu">

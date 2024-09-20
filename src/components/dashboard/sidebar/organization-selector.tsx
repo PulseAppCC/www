@@ -82,7 +82,7 @@ const OrganizationSelector = (): ReactElement => {
                     role="combobox"
                 >
                     {selected ? (
-                        <div className="flex gap-2.5 items-center">
+                        <div className="flex gap-3.5 items-center">
                             <OrganizationLogo
                                 organization={selected}
                                 size="sm"
@@ -105,7 +105,7 @@ const OrganizationSelector = (): ReactElement => {
                                 (organization: Organization, index: number) => (
                                     <CommandItem
                                         key={index}
-                                        className="px-3.5 relative flex gap-2 items-center"
+                                        className="px-3.5 relative flex gap-2.5 items-center"
                                         value={organization.name}
                                         onSelect={(currentValue: string) =>
                                             selectOrganization(

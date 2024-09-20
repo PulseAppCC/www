@@ -72,6 +72,7 @@ const UserMenu = (): ReactElement => {
                 <DropdownMenuItem
                     className="gap-2.5 text-red-500 cursor-pointer"
                     onClick={logout}
+                    draggable={false}
                 >
                     <ArrowLeftEndOnRectangleIcon className="w-5 h-5" />
                     <span>Logout</span>
@@ -92,19 +93,19 @@ const MyAccount = (): ReactElement => (
             My Account
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href="/dashboard/user/profile">
+        <Link href="/dashboard/user/profile" draggable={false}>
             <DropdownMenuItem className="gap-2.5 cursor-pointer">
                 <UserIcon className="w-5 h-5" />
                 <span>Profile</span>
             </DropdownMenuItem>
         </Link>
-        <Link href="/dashboard/user/billing">
+        <Link href="/dashboard/user/billing" draggable={false}>
             <DropdownMenuItem className="gap-2.5 cursor-pointer">
                 <CreditCardIcon className="w-5 h-5" />
                 <span>Billing</span>
             </DropdownMenuItem>
         </Link>
-        <Link href="/dashboard/user/settings">
+        <Link href="/dashboard/user/settings" draggable={false}>
             <DropdownMenuItem className="gap-2.5 cursor-pointer">
                 <Cog6ToothIcon className="w-5 h-5" />
                 <span>Settings</span>

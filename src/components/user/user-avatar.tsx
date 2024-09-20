@@ -64,7 +64,7 @@ const UserAvatar = ({
             />
         ) : (
             <InitialsAvatar
-                className="w-6 h-6 bg-muted rounded-full"
+                className="w-6 h-6 flex justify-center items-center bg-muted rounded-full"
                 name={user.username}
             />
         )}
