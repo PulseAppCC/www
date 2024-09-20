@@ -75,6 +75,7 @@ const Device = ({
                             className="p-0 w-5 h-5 text-red-500 hover:bg-transparent hover:text-red-500/75"
                             size="icon"
                             variant="ghost"
+                            disabled
                         >
                             <ArrowLeftEndOnRectangleIcon />
                         </Button>

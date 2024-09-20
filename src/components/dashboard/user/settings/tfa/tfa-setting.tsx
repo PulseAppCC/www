@@ -107,8 +107,7 @@ const TFASetting = (): ReactElement => {
                 <h1 className="text-lg font-bold">Two-Factor Auth</h1>
                 <p className="max-w-64 text-sm opacity-75">
                     Enhance your account security with an extra layer of
-                    protection. Enable Two-Factor Authentication for safer
-                    access!
+                    protection.
                 </p>
             </div>
 

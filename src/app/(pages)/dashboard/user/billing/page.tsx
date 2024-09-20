@@ -18,7 +18,7 @@ const UserBillingPage = (): ReactElement => (
             <Separator className="opacity-65" />
             <p className="opacity-75 select-none pointer-events-none">
                 Billing is not yet available, this will be available to cloud
-                environments.
+                environments in the future.
             </p>
         </div>
     </main>

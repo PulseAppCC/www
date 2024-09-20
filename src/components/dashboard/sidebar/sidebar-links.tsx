@@ -10,6 +10,7 @@ import {
     ClipboardIcon,
     Cog6ToothIcon,
     FireIcon,
+    HomeIcon,
     PencilSquareIcon,
     WrenchIcon,
 } from "@heroicons/react/24/outline";
@@ -19,34 +20,39 @@ import { usePathname } from "next/navigation";
 
 const links: SidebarLink[] = [
     {
+        name: "Home",
+        icon: <HomeIcon />,
+        href: "/dashboard",
+    },
+    {
         name: "Status Pages",
         icon: <ClipboardIcon />,
-        href: "/status-pages",
+        href: "/dashboard/{org}/status-pages",
     },
     {
         name: "Automations",
         icon: <WrenchIcon />,
-        href: "/automations",
+        href: "/dashboard/{org}/automations",
     },
     {
         name: "Incidents",
         icon: <FireIcon />,
-        href: "/incidents",
+        href: "/dashboard/{org}/incidents",
     },
     {
         name: "Insights",
         icon: <ChartBarSquareIcon />,
-        href: "/insights",
+        href: "/dashboard/{org}/insights",
     },
     {
         name: "Audit Logs",
         icon: <PencilSquareIcon />,
-        href: "/audit",
+        href: "/dashboard/{org}/audit",
     },
     {
         name: "Settings",
         icon: <Cog6ToothIcon />,
-        href: "/settings",
+        href: "/dashboard/{org}/settings",
     },
 ];
 
@@ -64,7 +70,10 @@ const Links = (): ReactElement => {
     return (
         <div className="mt-3.5 w-full flex flex-col gap-0.5 select-none">
             {links.map((link: SidebarLink, index: number) => {
-                const href: string = `/dashboard/org/${selectedOrganization}${link.href}`;
+                const href: string = link.href.replace(
+                    "{org}",
+                    selectedOrganization as string
+                );
                 const active: boolean = path.startsWith(href);
                 return (
                     <SimpleTooltip

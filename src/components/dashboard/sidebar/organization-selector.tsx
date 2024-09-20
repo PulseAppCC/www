@@ -43,7 +43,7 @@ const OrganizationSelector = (): ReactElement => {
 
     // Set the selected organization
     useEffect(() => {
-        const toSelect: Organization | undefined = organizations.find(
+        const toSelect: Organization | undefined = organizations?.find(
             (organization: Organization) => {
                 return organization.snowflake === selectedOrganization;
             }
@@ -51,11 +51,11 @@ const OrganizationSelector = (): ReactElement => {
         // Update the state for this page
         setSelected(
             toSelect ||
-                (organizations.length > 0 ? organizations[0] : undefined)
+                (organizations?.length > 0 ? organizations[0] : undefined)
         );
 
         // Update the state for all pages
-        if (!toSelect && organizations.length > 0) {
+        if (!toSelect && organizations?.length > 0) {
             setSelectedOrganization(organizations[0].snowflake);
         }
     }, [organizations, selectedOrganization, setSelectedOrganization]);
@@ -101,7 +101,7 @@ const OrganizationSelector = (): ReactElement => {
                     <CommandList>
                         <CommandEmpty>No organizations found.</CommandEmpty>
                         <CommandGroup>
-                            {organizations.map(
+                            {organizations?.map(
                                 (organization: Organization, index: number) => (
                                     <CommandItem
                                         key={index}
