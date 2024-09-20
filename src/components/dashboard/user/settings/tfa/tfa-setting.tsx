@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import TfaSetupForm from "@/components/dashboard/user/settings/tfa/tfa-setup-form";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 /**
  * The setting that allows a
@@ -79,7 +80,10 @@ const TFASetting = (): ReactElement => {
                         if (open) {
                             setupTfa();
                         } else if (enabledTfa) {
-                            router.push("/auth");
+                            toast(
+                                "Successfully enabled two-factor auth on your account!"
+                            );
+                            router.push("/dashboard");
                         }
                     }}
                 >
