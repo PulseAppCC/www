@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement } from "react";
-import { SidebarLink } from "@/app/types/sidebar-link";
+import { SidebarLink } from "@/app/types/dashboard/sidebar-link";
 import SimpleTooltip from "@/components/simple-tooltip";
 import Link from "next/link";
 import { cn } from "@/lib/utils";

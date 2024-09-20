@@ -23,7 +23,6 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import DashboardLoader from "@/components/dashboard/loader";
 import { hasFlag } from "@/lib/user";
 import { UserFlag } from "@/app/types/user/user-flag";
-import EmailVerificationScreen from "@/components/dashboard/user/email-verification-screen";
 
 /**
  * The provider that will provide user context to children.

@@ -20,12 +20,31 @@ import {
     CreditCardIcon,
     UserIcon,
 } from "@heroicons/react/24/outline";
-import Link from "next/link";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
 import { Cookies, useCookies } from "next-client-cookies";
 import { Session } from "@/app/types/user/session";
 import { apiRequest } from "@/lib/api";
+import UserMenuLinks from "@/components/dashboard/sidebar/user-menu/user-menu-links";
+import { UserMenuLink } from "@/app/types/dashboard/user-menu-link";
+
+export const userMenuLinks: UserMenuLink[] = [
+    {
+        name: "Profile",
+        icon: <UserIcon />,
+        href: "/dashboard/user/profile",
+    },
+    {
+        name: "Billing",
+        icon: <CreditCardIcon />,
+        href: "/dashboard/user/billing",
+    },
+    {
+        name: "Settings",
+        icon: <Cog6ToothIcon />,
+        href: "/dashboard/user/settings",
+    },
+];
 
 /**
  * The menu to manage the user.
@@ -93,24 +112,7 @@ const MyAccount = (): ReactElement => (
             My Account
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href="/dashboard/user/profile" draggable={false}>
-            <DropdownMenuItem className="gap-2.5 cursor-pointer">
-                <UserIcon className="w-5 h-5" />
-                <span>Profile</span>
-            </DropdownMenuItem>
-        </Link>
-        <Link href="/dashboard/user/billing" draggable={false}>
-            <DropdownMenuItem className="gap-2.5 cursor-pointer">
-                <CreditCardIcon className="w-5 h-5" />
-                <span>Billing</span>
-            </DropdownMenuItem>
-        </Link>
-        <Link href="/dashboard/user/settings" draggable={false}>
-            <DropdownMenuItem className="gap-2.5 cursor-pointer">
-                <Cog6ToothIcon className="w-5 h-5" />
-                <span>Settings</span>
-            </DropdownMenuItem>
-        </Link>
+        <UserMenuLinks />
     </DropdownMenuGroup>
 );
 

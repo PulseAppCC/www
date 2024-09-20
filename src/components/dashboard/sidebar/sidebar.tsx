@@ -5,13 +5,13 @@ import Branding from "@/components/branding";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import OrganizationSelector from "@/components/dashboard/sidebar/organization-selector";
-import Links from "@/components/dashboard/sidebar/links";
+import Links from "@/components/dashboard/sidebar/sidebar-links";
 import { User } from "@/app/types/user/user";
 import { useUserContext } from "@/app/provider/user-provider";
 import { UserState } from "@/app/store/user-store";
 import { hasFlag } from "@/lib/user";
 import { UserFlag } from "@/app/types/user/user-flag";
-import UserMenu from "@/components/dashboard/sidebar/user-menu";
+import UserMenu from "@/components/dashboard/sidebar/user-menu/user-menu";
 
 /**
  * The sidebar to display on the dashboard.
