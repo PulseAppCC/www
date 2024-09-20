@@ -75,7 +75,10 @@ const Links = (): ReactElement => {
                         index === 0 || (index > 0 && selectedOrganization)
                 )
                 .map((link: SidebarLink, index: number) => {
-                    const active: boolean = path.startsWith(link.href);
+                    const active: boolean =
+                        index === 0
+                            ? path === link.href
+                            : path.startsWith(link.href);
                     return (
                         <SimpleTooltip
                             key={index}
