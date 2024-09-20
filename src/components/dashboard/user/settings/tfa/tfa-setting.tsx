@@ -21,9 +21,8 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import TfaSetupForm from "@/components/dashboard/user/settings/tfa/tfa-setup-form";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import UserTfaPrompt from "@/components/user/user-tfa-prompt";
 
 /**
  * The setting that allows a
@@ -39,13 +38,11 @@ const TFASetting = (): ReactElement => {
     const user: User | undefined = useUserContext(
         (state: UserState) => state.user
     );
-    const router: AppRouterInstance = useRouter();
 
     const [tfaResponse, setTfaResponse] = useState<
         UserSetupTfaResponse | undefined
     >(undefined);
     const [enabledTfa, setEnabledTfa] = useState<boolean>(false);
-    const [disabling, setDisabling] = useState<boolean>(false);
 
     const onDialogStateChange = async (open: boolean) => {
         if (open) {
@@ -77,20 +74,30 @@ const TFASetting = (): ReactElement => {
     /**
      * Disable two-factor auth.
      */
-    const disableTfa = async () => {
-        setDisabling(true);
-        await apiRequest<void>({
+    const disableTfa = async ({
+        pin,
+        setError,
+    }: {
+        pin: string;
+        setError: (error: string | undefined) => void;
+    }) => {
+        const { error } = await apiRequest<void>({
             endpoint: "/user/disable-tfa",
             method: "POST",
             session,
+            body: { pin },
         });
-        toast("Two-Factor Auth", {
-            icon: "🔓",
-            description: "Two-factor auth has been disabled for your account.",
-        });
-        setTimeout(() => {
-            window.location.reload();
-        }, 1500);
+        setError(error?.message);
+        if (!error) {
+            toast("Two-Factor Auth", {
+                icon: "🔓",
+                description:
+                    "Two-factor auth has been disabled for your account.",
+            });
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        }
     };
 
     return (
@@ -107,14 +114,15 @@ const TFASetting = (): ReactElement => {
 
             {/* Setting */}
             {hasFlag(user as User, UserFlag.TFA_ENABLED) ? (
-                <Button
-                    size="sm"
-                    variant="destructive"
-                    onClick={disableTfa}
-                    disabled={disabling}
+                <UserTfaPrompt
+                    message="Please verify it's you before disabling two-factor auth."
+                    submitButtonText="Disable TFA"
+                    onSubmit={disableTfa}
                 >
-                    Disable
-                </Button>
+                    <Button size="sm" variant="destructive">
+                        Disable
+                    </Button>
+                </UserTfaPrompt>
             ) : (
                 <Dialog onOpenChange={onDialogStateChange}>
                     <DialogTrigger>
@@ -122,6 +130,7 @@ const TFASetting = (): ReactElement => {
                             className="bg-background/30"
                             size="sm"
                             variant="outline"
+                            disabled={enabledTfa}
                         >
                             Setup
                         </Button>

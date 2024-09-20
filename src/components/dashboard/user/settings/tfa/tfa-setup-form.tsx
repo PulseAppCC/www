@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactElement, useState } from "react";
 import { UserSetupTfaResponse } from "@/app/types/user/response/user-setup-tfa-response";
 import { useForm } from "react-hook-form";
@@ -25,6 +27,7 @@ const FormSchema = z.object({
  * the setup of TFA for a user.
  *
  * @param tfaResponse the tfa setup response
+ * @param setEnabledTfa the function to invoke to indicate tfa is enabled
  * @return the form jsx
  */
 const TfaSetupForm = ({
