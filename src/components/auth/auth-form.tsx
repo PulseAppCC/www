@@ -1,7 +1,7 @@
 "use client";
 
 import { z } from "zod";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
@@ -90,15 +90,11 @@ const AuthForm = (): ReactElement => {
 
     const [stage, setStage] = useState<"email" | "register" | "login">("email");
     const [loading, setLoading] = useState<boolean>(false);
-
-    const [awaitingCaptcha, setAwaitingCaptcha] = useState<boolean>(true);
     const [captchaResponse, setCaptchaResponse] = useState<string | undefined>(
         undefined
     );
-
     const [borderCrossing, setBorderCrossing] = useState<boolean>(false);
     const [tfaPin, setTfaPin] = useState<string | undefined>();
-
     const [error, setError] = useState<string | undefined>(undefined);
 
     // Build the form
@@ -116,12 +112,6 @@ const AuthForm = (): ReactElement => {
         ),
     });
 
-    // Received the captcha response
-    useEffect(() => {
-        console.log("Received new captcha response");
-        setAwaitingCaptcha(false);
-    }, [captchaResponse]);
-
     /**
      * Handle submitting the form.
      */
@@ -131,24 +121,18 @@ const AuthForm = (): ReactElement => {
         password,
         passwordConfirmation,
     }: any) => {
-        // Prevent submitting when the captcha is being fetched
-        if (awaitingCaptcha) {
-            return;
-        }
         setLoading(true);
         if (stage === "email") {
             const { data, error } = await apiRequest<{ exists: boolean }>({
                 endpoint: `/user/exists`,
                 method: "POST",
-                body: { email, captchaResponse },
+                body: { email },
             });
             if (error) {
                 setError(error.message);
             } else {
                 setStage(data?.exists ? "login" : "register");
             }
-            setAwaitingCaptcha(true);
-            turnstile.reset();
         } else {
             const registering: boolean = stage === "register";
             const { data, error } = await apiRequest<UserAuthResponse>({
@@ -175,7 +159,6 @@ const AuthForm = (): ReactElement => {
                 setLoading(false);
                 setBorderCrossing(true);
                 setError(undefined);
-                setAwaitingCaptcha(true);
                 turnstile.reset();
                 return;
             }
@@ -183,7 +166,6 @@ const AuthForm = (): ReactElement => {
 
             // Reset the captcha if auth fails
             if (error) {
-                setAwaitingCaptcha(true);
                 turnstile.reset();
             } else {
                 // Otherwise store the session and redirect to the dashboard
@@ -256,7 +238,6 @@ const AuthForm = (): ReactElement => {
                         className="pl-8 rounded-lg"
                         type="password"
                         placeholder="Password"
-                        disabled={awaitingCaptcha}
                         {...register("password")}
                     />
                 </motion.div>
@@ -320,7 +301,7 @@ const AuthForm = (): ReactElement => {
             <Button
                 className="h-11 flex gap-2.5 items-center text-white border border-secondary transition-all transform-gpu group"
                 type="submit"
-                disabled={loading || awaitingCaptcha}
+                disabled={loading}
             >
                 {loading && <ArrowPathIcon className="w-4 h-4 animate-spin" />}
                 <span className="-translate-y-0.5">
