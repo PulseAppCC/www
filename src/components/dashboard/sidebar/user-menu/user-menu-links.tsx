@@ -1,3 +1,5 @@
+"use client";
+
 import { userMenuLinks } from "@/components/dashboard/sidebar/user-menu/user-menu";
 import Link from "next/link";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";

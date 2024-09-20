@@ -28,32 +28,32 @@ const links: SidebarLink[] = [
     {
         name: "Status Pages",
         icon: <ClipboardIcon />,
-        href: "/dashboard/status-pages",
+        href: "/dashboard/org/status-pages",
     },
     {
         name: "Automations",
         icon: <WrenchIcon />,
-        href: "/dashboard/automations",
+        href: "/dashboard/org/automations",
     },
     {
         name: "Incidents",
         icon: <FireIcon />,
-        href: "/dashboard/incidents",
+        href: "/dashboard/org/incidents",
     },
     {
         name: "Insights",
         icon: <ChartBarSquareIcon />,
-        href: "/dashboard/insights",
+        href: "/dashboard/org/insights",
     },
     {
         name: "Audit Logs",
         icon: <PencilSquareIcon />,
-        href: "/dashboard/audit",
+        href: "/dashboard/org/audit",
     },
     {
         name: "Settings",
         icon: <Cog6ToothIcon />,
-        href: "/dashboard/settings",
+        href: "/dashboard/org/settings",
     },
 ];
 

@@ -18,7 +18,7 @@ const DashboardLayout = ({
         <OrganizationProvider>
             <div className="min-h-screen flex">
                 <Sidebar />
-                {children}
+                <div className="w-full mx-7 my-6">{children}</div>
             </div>
         </OrganizationProvider>
     </UserProvider>

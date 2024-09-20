@@ -14,7 +14,7 @@ import UserSettingsHeader from "@/components/dashboard/user/user-settings-header
  * @return the page jsx
  */
 const UserProfilePage = (): ReactElement => (
-    <main className="w-[47rem] px-10 py-7 flex flex-col gap-5">
+    <main className="w-[47rem] flex flex-col gap-5">
         <UserSettingsHeader title="My Profile" />
 
         {/* Content */}

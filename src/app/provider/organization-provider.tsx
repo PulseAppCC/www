@@ -2,7 +2,6 @@
 
 import { ReactNode, useCallback, useContext, useEffect, useRef } from "react";
 import { UserState } from "@/app/store/user-store";
-import { User } from "@/app/types/user/user";
 import { StoreApi, useStore } from "zustand";
 import createOrganizationStore, {
     OrganizationContext,
@@ -23,9 +22,6 @@ import { Session } from "@/app/types/user/session";
 const OrganizationProvider = ({ children }: { children: ReactNode }) => {
     const session: Session | undefined = useUserContext(
         (state: UserState) => state.session
-    );
-    const user: User | undefined = useUserContext(
-        (state: UserState) => state.user
     );
 
     const storeRef = useRef<OrganizationStore>();

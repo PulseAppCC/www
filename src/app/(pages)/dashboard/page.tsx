@@ -14,10 +14,6 @@ const DashboardPage = (): ReactElement => {
     const user: User | undefined = useUserContext(
         (state: UserState) => state.user
     );
-    return (
-        <main className="p-4">
-            Hi there {user?.username}, welcome to Pulse App!
-        </main>
-    );
+    return <main>Hi there {user?.username}, welcome to Pulse App!</main>;
 };
 export default DashboardPage;
