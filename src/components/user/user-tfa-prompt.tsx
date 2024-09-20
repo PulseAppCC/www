@@ -132,7 +132,7 @@ const UserTfaPrompt = ({
             <DialogTrigger>{children}</DialogTrigger>
             <DialogContent>
                 {/* Header */}
-                <DialogHeader>
+                <DialogHeader className="select-none pointer-events-none">
                     <DialogTitle>Two-Factor Border</DialogTitle>
                     <DialogDescription>{message}</DialogDescription>
                 </DialogHeader>

@@ -195,7 +195,7 @@ const TFASetting = (): ReactElement => {
                         )}
 
                         {/* Notice */}
-                        {!enabledTfa && (
+                        {tfaResponse && !enabledTfa && (
                             <DialogFooter className="sm:justify-center gap-1.5 text-sm opacity-75 select-none">
                                 <b>NOTE:</b>Enabling two-factor auth will log
                                 you out of all other devices.

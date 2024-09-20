@@ -3,6 +3,11 @@
  */
 export type Session = {
     /**
+     * The snowflake of this session.
+     */
+    snowflake: string;
+
+    /**
      * The access token for this session.
      */
     accessToken: string;
