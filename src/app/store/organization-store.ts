@@ -14,14 +14,14 @@ export const OrganizationContext = createContext<OrganizationStore | null>(
  */
 export type OrganizationStoreProps = {
     /**
-     * The currently selected organization.
-     */
-    selected: string | undefined;
-
-    /**
      * The organization's the user has.
      */
     organizations: Organization[];
+
+    /**
+     * The currently selected organization.
+     */
+    selected: Organization | undefined;
 };
 
 /**
@@ -31,12 +31,12 @@ export type OrganizationState = OrganizationStoreProps & {
     /**
      * Update the state.
      *
-     * @param selected the selected organization
      * @param organizations the user's organizations
+     * @param selected the selected organization
      */
     update: (
-        selected: string | undefined,
-        organizations: Organization[]
+        organizations: Organization[],
+        selected: Organization | undefined
     ) => void;
 
     /**
@@ -44,7 +44,7 @@ export type OrganizationState = OrganizationStoreProps & {
      *
      * @param selected the selected organization
      */
-    setSelected: (selected: string | undefined) => void;
+    setSelected: (selected: Organization | undefined) => void;
 };
 
 /**
@@ -62,9 +62,11 @@ const createOrganizationStore = () => {
     };
     return createStore<OrganizationState>()((set) => ({
         ...defaultProps,
-        update: (selected: string | undefined, organizations: Organization[]) =>
-            set(() => ({ selected, organizations })),
-        setSelected: (selected: string | undefined) =>
+        update: (
+            organizations: Organization[],
+            selected: Organization | undefined
+        ) => set(() => ({ organizations, selected })),
+        setSelected: (selected: Organization | undefined) =>
             set(() => ({ selected })),
     }));
 };

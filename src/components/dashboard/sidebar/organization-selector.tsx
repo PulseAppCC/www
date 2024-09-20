@@ -29,36 +29,14 @@ import OrganizationLogo from "@/components/org/organization-logo";
  * @return the selector jsx
  */
 const OrganizationSelector = (): ReactElement => {
-    const selectedOrganization: string | undefined = useOrganizationContext(
-        (state: OrganizationState) => state.selected
-    );
-    const setSelectedOrganization = useOrganizationContext(
-        (state) => state.setSelected
-    );
     const organizations: Organization[] = useOrganizationContext(
         (state: OrganizationState) => state.organizations
     );
+    const selected: Organization | undefined = useOrganizationContext(
+        (state: OrganizationState) => state.selected
+    );
+    const setSelected = useOrganizationContext((state) => state.setSelected);
     const [open, setOpen] = useState<boolean>(false);
-    const [selected, setSelected] = useState<Organization | undefined>();
-
-    // Set the selected organization
-    useEffect(() => {
-        const toSelect: Organization | undefined = organizations?.find(
-            (organization: Organization) => {
-                return organization.snowflake === selectedOrganization;
-            }
-        );
-        // Update the state for this page
-        setSelected(
-            toSelect ||
-                (organizations?.length > 0 ? organizations[0] : undefined)
-        );
-
-        // Update the state for all pages
-        if (!toSelect && organizations?.length > 0) {
-            setSelectedOrganization(organizations[0].snowflake);
-        }
-    }, [organizations, selectedOrganization, setSelectedOrganization]);
 
     /**
      * Handle selecting an organization.
@@ -68,7 +46,6 @@ const OrganizationSelector = (): ReactElement => {
     const selectOrganization = (organization: Organization) => {
         setOpen(false);
         setSelected(organization);
-        setSelectedOrganization(organization.snowflake);
         localStorage.setItem("selected-organization", organization.snowflake);
     };
 
@@ -122,8 +99,7 @@ const OrganizationSelector = (): ReactElement => {
                                             size="sm"
                                         />
                                         {organization.name}
-                                        {organization.snowflake ===
-                                            selectedOrganization && (
+                                        {organization === selected && (
                                             <CheckIcon className="absolute right-3.5 w-4 h-4" />
                                         )}
                                     </CommandItem>

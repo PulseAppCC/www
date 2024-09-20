@@ -12,7 +12,7 @@ import DevicesSetting from "@/components/dashboard/user/settings/device/devices-
  * @return the page jsx
  */
 const UserSettingsPage = (): ReactElement => (
-    <main className="w-[47rem] p-10 flex flex-col gap-5">
+    <main className="w-[47rem] px-10 py-7 flex flex-col gap-5">
         <UserSettingsHeader title="Settings" />
 
         {/* Content */}

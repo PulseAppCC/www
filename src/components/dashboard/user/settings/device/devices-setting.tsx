@@ -9,6 +9,7 @@ import { Device as DeviceType } from "@/app/types/user/device";
 import { apiRequest } from "@/lib/api";
 import Device from "@/components/dashboard/user/settings/device/device";
 import { DateTime } from "luxon";
+import DevicesSkeleton from "@/components/dashboard/user/settings/device/devices-skeleton";
 
 /**
  * The setting that allows a
@@ -52,23 +53,34 @@ const DevicesSetting = (): ReactElement => {
 
             {/* Setting */}
             <div className="w-[27.7rem] flex flex-col gap-2">
-                {devices
-                    ?.sort(
-                        (a: DeviceType, b: DeviceType) =>
-                            DateTime.fromISO(
-                                b.firstLogin.toString()
-                            ).toMillis() -
-                            DateTime.fromISO(a.firstLogin.toString()).toMillis()
-                    )
-                    .map((device: DeviceType, index: number) => (
-                        <Device
-                            key={index}
-                            device={device}
-                            current={
-                                session?.snowflake === device.sessionSnowflake
-                            }
-                        />
-                    ))}
+                {!devices ? (
+                    <>
+                        {Array.from({ length: 4 }, (_, index) => (
+                            <DevicesSkeleton key={index} index={index} />
+                        ))}
+                    </>
+                ) : (
+                    devices
+                        .sort(
+                            (a: DeviceType, b: DeviceType) =>
+                                DateTime.fromISO(
+                                    b.firstLogin.toString()
+                                ).toMillis() -
+                                DateTime.fromISO(
+                                    a.firstLogin.toString()
+                                ).toMillis()
+                        )
+                        .map((device: DeviceType, index: number) => (
+                            <Device
+                                key={index}
+                                device={device}
+                                current={
+                                    session?.snowflake ===
+                                    device.sessionSnowflake
+                                }
+                            />
+                        ))
+                )}
             </div>
         </div>
     );

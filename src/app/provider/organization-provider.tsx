@@ -37,20 +37,24 @@ const OrganizationProvider = ({ children }: { children: ReactNode }) => {
      * Fetch the organizations for the logged in user.
      */
     const fetchOrganizations = useCallback(async () => {
-        let selectedOrganization: string | null = localStorage.getItem(
-            "selected-organization"
-        );
         const { data, error } = await apiRequest<Organization[]>({
             endpoint: "/organization/@me",
             session,
         });
+        const selectedOrgSnowflake: string | null = localStorage.getItem(
+            "selected-organization"
+        );
         const organizations: Organization[] = data as Organization[];
-        if (!selectedOrganization && organizations.length > 0) {
-            selectedOrganization = organizations[0].snowflake;
+        let selected: Organization | undefined;
+        if (!selected && organizations.length > 0) {
+            selected = organizations[0];
+        } else {
+            selected = organizations.find(
+                (organization: Organization) =>
+                    organization.snowflake === selectedOrgSnowflake
+            );
         }
-        storeRef.current
-            ?.getState()
-            .update(selectedOrganization || undefined, organizations);
+        storeRef.current?.getState().update(organizations, selected);
     }, [session]);
 
     useEffect(() => {

@@ -17,6 +17,7 @@ import {
 import { useOrganizationContext } from "@/app/provider/organization-provider";
 import { OrganizationState } from "@/app/store/organization-store";
 import { usePathname } from "next/navigation";
+import { Organization } from "@/app/types/org/organization";
 
 const links: SidebarLink[] = [
     {
@@ -27,32 +28,32 @@ const links: SidebarLink[] = [
     {
         name: "Status Pages",
         icon: <ClipboardIcon />,
-        href: "/dashboard/{org}/status-pages",
+        href: "/dashboard/status-pages",
     },
     {
         name: "Automations",
         icon: <WrenchIcon />,
-        href: "/dashboard/{org}/automations",
+        href: "/dashboard/automations",
     },
     {
         name: "Incidents",
         icon: <FireIcon />,
-        href: "/dashboard/{org}/incidents",
+        href: "/dashboard/incidents",
     },
     {
         name: "Insights",
         icon: <ChartBarSquareIcon />,
-        href: "/dashboard/{org}/insights",
+        href: "/dashboard/insights",
     },
     {
         name: "Audit Logs",
         icon: <PencilSquareIcon />,
-        href: "/dashboard/{org}/audit",
+        href: "/dashboard/audit",
     },
     {
         name: "Settings",
         icon: <Cog6ToothIcon />,
-        href: "/dashboard/{org}/settings",
+        href: "/dashboard/settings",
     },
 ];
 
@@ -63,37 +64,39 @@ const links: SidebarLink[] = [
  * @return the links jsx
  */
 const Links = (): ReactElement => {
-    const selectedOrganization: string | undefined = useOrganizationContext(
-        (state: OrganizationState) => state.selected
-    );
+    const selectedOrganization: Organization | undefined =
+        useOrganizationContext((state: OrganizationState) => state.selected);
     const path: string = usePathname();
     return (
         <div className="mt-3.5 w-full flex flex-col gap-0.5 select-none">
-            {links.map((link: SidebarLink, index: number) => {
-                const href: string = link.href.replace(
-                    "{org}",
-                    selectedOrganization as string
-                );
-                const active: boolean = path.startsWith(href);
-                return (
-                    <SimpleTooltip
-                        key={index}
-                        content={`Visit ${link.name}`}
-                        side="right"
-                    >
-                        <Link
-                            className={cn(
-                                "px-3 py-2 flex gap-2 items-center text-sm rounded-lg hover:bg-zinc-800 transition-all transform-gpu",
-                                active && "font-medium bg-zinc-800"
-                            )}
-                            href={href}
+            {links
+                .filter(
+                    (link: SidebarLink, index: number) =>
+                        index === 0 || (index > 0 && selectedOrganization)
+                )
+                .map((link: SidebarLink, index: number) => {
+                    const active: boolean = path.startsWith(link.href);
+                    return (
+                        <SimpleTooltip
+                            key={index}
+                            content={`Visit ${link.name}`}
+                            side="right"
                         >
-                            <div className="relative w-5 h-5">{link.icon}</div>
-                            {link.name}
-                        </Link>
-                    </SimpleTooltip>
-                );
-            })}
+                            <Link
+                                className={cn(
+                                    "px-3 py-2 flex gap-2 items-center text-sm rounded-lg hover:bg-zinc-800 transition-all transform-gpu",
+                                    active && "font-medium bg-zinc-800"
+                                )}
+                                href={link.href}
+                            >
+                                <div className="relative w-5 h-5">
+                                    {link.icon}
+                                </div>
+                                {link.name}
+                            </Link>
+                        </SimpleTooltip>
+                    );
+                })}
         </div>
     );
 };

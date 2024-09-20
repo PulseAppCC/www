@@ -34,7 +34,7 @@ const Device = ({
             setTimeSinceFirstLogin(
                 DateTime.fromISO(device.firstLogin.toString()).toRelative()
             );
-        }, 60000);
+        }, 1000);
         return () => clearInterval(interval);
     }, [device.firstLogin]);
 
