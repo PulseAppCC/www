@@ -33,7 +33,7 @@ const TierSetting = (): ReactElement => {
                     {capitalizeWords(user?.tier)}
                 </span>
 
-                <Link href="/#pricing">
+                <Link href="/#pricing" draggable={false}>
                     <Button
                         className="bg-background/30"
                         size="sm"

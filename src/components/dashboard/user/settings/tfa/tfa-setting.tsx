@@ -39,11 +39,28 @@ const TFASetting = (): ReactElement => {
     const user: User | undefined = useUserContext(
         (state: UserState) => state.user
     );
+    const router: AppRouterInstance = useRouter();
+
     const [tfaResponse, setTfaResponse] = useState<
         UserSetupTfaResponse | undefined
     >(undefined);
     const [enabledTfa, setEnabledTfa] = useState<boolean>(false);
-    const router: AppRouterInstance = useRouter();
+    const [disabling, setDisabling] = useState<boolean>(false);
+
+    const onDialogStateChange = async (open: boolean) => {
+        if (open) {
+            await setupTfa();
+        } else if (enabledTfa) {
+            toast("Two-Factor Auth", {
+                icon: "🎉",
+                description:
+                    "Successfully enabled two-factor auth on your account!",
+            });
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        }
+    };
 
     /**
      * Start setting up two-factor auth.
@@ -55,6 +72,25 @@ const TFASetting = (): ReactElement => {
             session,
         });
         setTfaResponse(data);
+    };
+
+    /**
+     * Disable two-factor auth.
+     */
+    const disableTfa = async () => {
+        setDisabling(true);
+        await apiRequest<void>({
+            endpoint: "/user/disable-tfa",
+            method: "POST",
+            session,
+        });
+        toast("Two-Factor Auth", {
+            icon: "🔓",
+            description: "Two-factor auth has been disabled for your account.",
+        });
+        setTimeout(() => {
+            window.location.reload();
+        }, 1500);
     };
 
     return (
@@ -71,24 +107,16 @@ const TFASetting = (): ReactElement => {
 
             {/* Setting */}
             {hasFlag(user as User, UserFlag.TFA_ENABLED) ? (
-                <Button size="sm" variant="destructive">
+                <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={disableTfa}
+                    disabled={disabling}
+                >
                     Disable
                 </Button>
             ) : (
-                <Dialog
-                    onOpenChange={async (open: boolean) => {
-                        if (open) {
-                            setupTfa();
-                        } else if (enabledTfa) {
-                            toast("Two-Factor Auth", {
-                                icon: "🎉",
-                                description:
-                                    "Successfully enabled two-factor auth on your account!",
-                            });
-                            router.push("/dashboard");
-                        }
-                    }}
-                >
+                <Dialog onOpenChange={onDialogStateChange}>
                     <DialogTrigger>
                         <Button
                             className="bg-background/30"

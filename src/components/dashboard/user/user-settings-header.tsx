@@ -36,7 +36,7 @@ const UserSettingsHeader = ({ title }: { title: string }): ReactElement => {
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>
-                        <BreadcrumbLink href="/dashboard">
+                        <BreadcrumbLink href="/dashboard" draggable={false}>
                             Dashboard
                         </BreadcrumbLink>
                     </BreadcrumbItem>

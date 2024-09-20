@@ -95,7 +95,7 @@ const OrganizationSelector = (): ReactElement => {
                     <ChevronsUpDownIcon className="ml-2 w-4 h-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="p-0 w-52">
+            <PopoverContent className="w-56 p-0">
                 <Command>
                     <CommandInput placeholder="Search organization..." />
                     <CommandList>
