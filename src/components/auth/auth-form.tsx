@@ -128,9 +128,8 @@ const AuthForm = (): ReactElement => {
                 method: "POST",
                 body: { email },
             });
-            if (error) {
-                setError(error.message);
-            } else {
+            setError(error?.message);
+            if (!error) {
                 setStage(data?.exists ? "login" : "register");
             }
         } else {
