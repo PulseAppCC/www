@@ -1,73 +1,37 @@
 import * as React from "react";
 import { ReactElement } from "react";
-import { cva } from "class-variance-authority";
-import Image from "next/image";
-import InitialsAvatar from "react-initials-avatar";
-import { cn } from "@/lib/utils";
 import { User } from "@/app/types/user/user";
+import GenericAvatar from "@/components/generic-avatar";
 
 /**
- * The variants of the avatar.
- */
-const avatarVariants = cva("relative rounded-full", {
-    variants: {
-        size: {
-            sm: "w-6 h-6",
-            default: "w-11 h-11",
-        },
-    },
-    defaultVariants: {
-        size: "default",
-    },
-});
-
-/**
- * The props for this component.
+ * The props for the avatar.
  */
 type UserAvatarProps = {
     /**
      * The user to show the avatar for.
      */
     user: User;
-
-    /**
-     * The size of the avatar.
-     */
-    size?: "sm" | "default";
-
-    /**
-     * The optional class name to apply to the logo.
-     */
-    className?: string;
-};
+} & Omit<
+    React.ComponentProps<typeof GenericAvatar>,
+    "image" | "imageAlt" | "initialsText"
+>;
 
 /**
- * An avatar for a user.
+ * The avatar for a user.
  *
- * @param user the user
- * @param size the size
- * @param className additional class names
+ * @param user the user to show the avatar for
+ * @param props additional props
  * @return the avatar jsx
  */
-const UserAvatar = ({
-    user,
-    size,
-    className,
-}: UserAvatarProps): ReactElement => (
-    <div className={cn(avatarVariants({ size, className }))}>
-        {user.avatar ? (
-            <Image
-                className="rounded-full"
-                src={`${process.env.NEXT_PUBLIC_CDN_ENDPOINT}/avatars/${user.avatar}.webp`}
-                alt={`${user.username}'s Avatar`}
-                fill
-            />
-        ) : (
-            <InitialsAvatar
-                className="w-full h-full flex justify-center items-center bg-muted rounded-full"
-                name={user.username}
-            />
-        )}
-    </div>
+const UserAvatar = ({ user, ...props }: UserAvatarProps): ReactElement => (
+    <GenericAvatar
+        image={
+            user.avatar &&
+            `${process.env.NEXT_PUBLIC_CDN_ENDPOINT}/avatars/${user.avatar}.webp`
+        }
+        imageAlt={`${user.username}'s Avatar`}
+        initialsText={user.username}
+        {...props}
+    />
 );
 export default UserAvatar;

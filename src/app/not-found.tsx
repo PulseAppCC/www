@@ -25,7 +25,7 @@ const NotFoundPage = (): ReactElement => (
             <div className="flex flex-col justify-center">
                 <div className="flex flex-col gap-0.5 pointer-events-none">
                     <h1 className="text-3xl font-bold">Wrong Door!</h1>
-                    <p className="max-w-72 text-lg opacity-75">
+                    <p className="max-w-64 text-lg opacity-75">
                         The page you were looking for could not be found.
                     </p>
                 </div>

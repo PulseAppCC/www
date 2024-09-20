@@ -1,25 +1,7 @@
 import * as React from "react";
 import { ReactElement } from "react";
-import { cva } from "class-variance-authority";
-import Image from "next/image";
-import InitialsAvatar from "react-initials-avatar";
-import { cn } from "@/lib/utils";
 import { Organization } from "@/app/types/org/organization";
-
-/**
- * The variants of the logo.
- */
-const logoVariants = cva("relative rounded-full", {
-    variants: {
-        size: {
-            sm: "w-5 h-5",
-            default: "w-10 h-10",
-        },
-    },
-    defaultVariants: {
-        size: "default",
-    },
-});
+import GenericAvatar from "@/components/generic-avatar";
 
 /**
  * The props for this component.
@@ -29,45 +11,30 @@ type OrganizationLogoProps = {
      * The organization to show the logo for.
      */
     organization: Organization;
-
-    /**
-     * The size of the logo.
-     */
-    size?: "sm" | "default";
-
-    /**
-     * The optional class name to apply to the logo.
-     */
-    className?: string;
-};
+} & Omit<
+    React.ComponentProps<typeof GenericAvatar>,
+    "image" | "imageAlt" | "initialsText"
+>;
 
 /**
- * A logo for an organization.
+ * The logo for an organization.
  *
- * @param organization the organization
- * @param size the size
- * @param className additional class names
- * @return the organization jsx
+ * @param organization the org to show the logo for
+ * @param props additional props
+ * @return the logo jsx
  */
 const OrganizationLogo = ({
     organization,
-    size,
-    className,
+    ...props
 }: OrganizationLogoProps): ReactElement => (
-    <div className={cn(logoVariants({ size, className }))}>
-        {organization.logo ? (
-            <Image
-                className="rounded-full"
-                src={`${process.env.NEXT_PUBLIC_CDN_ENDPOINT}/organizations/${organization.logo}.webp`}
-                alt={`${organization.name}'s Logo`}
-                fill
-            />
-        ) : (
-            <InitialsAvatar
-                className="-translate-y-0.5 w-[130%] h-[130%] flex justify-center items-center bg-muted rounded-full"
-                name={organization.name}
-            />
-        )}
-    </div>
+    <GenericAvatar
+        image={
+            organization.logo &&
+            `${process.env.NEXT_PUBLIC_CDN_ENDPOINT}/organizations/${organization.logo}.webp`
+        }
+        imageAlt={`${organization.name}'s Logo`}
+        initialsText={organization.name}
+        {...props}
+    />
 );
 export default OrganizationLogo;

@@ -17,11 +17,12 @@ const OrganizationLayout = ({
 }: Readonly<{
     children: ReactNode;
 }>): ReactElement => {
-    const selectedOrganization: Organization | undefined =
-        useOrganizationContext((state: OrganizationState) => state.selected);
+    const organization: Organization | undefined = useOrganizationContext(
+        (state: OrganizationState) => state.selected
+    );
     return (
         <div className="h-full">
-            {selectedOrganization ? children : <NoOrganizationSelected />}
+            {organization ? children : <NoOrganizationSelected />}
         </div>
     );
 };
