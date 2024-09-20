@@ -6,7 +6,7 @@ import AvatarSetting from "@/components/dashboard/user/profile/avatar-setting";
 import UsernameSetting from "@/components/dashboard/user/profile/username-setting";
 import EmailSetting from "@/components/dashboard/user/profile/email-setting";
 import TierSetting from "@/components/dashboard/user/profile/tier-setting";
-import UserSettingsHeader from "@/components/dashboard/user/user-settings-header";
+import DashboardHeader from "@/components/dashboard/dashboard-header";
 
 /**
  * The user profile page.
@@ -15,7 +15,7 @@ import UserSettingsHeader from "@/components/dashboard/user/user-settings-header
  */
 const UserProfilePage = (): ReactElement => (
     <main className="w-[47rem] flex flex-col gap-5">
-        <UserSettingsHeader title="My Profile" />
+        <DashboardHeader title="My Profile" />
 
         {/* Content */}
         <div className="flex flex-col gap-5">

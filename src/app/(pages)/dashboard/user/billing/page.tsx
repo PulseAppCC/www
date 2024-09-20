@@ -2,7 +2,7 @@
 
 import { ReactElement } from "react";
 import { Separator } from "@/components/ui/separator";
-import UserSettingsHeader from "@/components/dashboard/user/user-settings-header";
+import DashboardHeader from "@/components/dashboard/dashboard-header";
 
 /**
  * The user billing page.
@@ -11,7 +11,7 @@ import UserSettingsHeader from "@/components/dashboard/user/user-settings-header
  */
 const UserBillingPage = (): ReactElement => (
     <main className="w-[47rem] flex flex-col gap-5">
-        <UserSettingsHeader title="Billing" />
+        <DashboardHeader title="Billing" />
 
         {/* Content */}
         <div className="flex flex-col gap-5">
