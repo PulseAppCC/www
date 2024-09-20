@@ -95,7 +95,7 @@ const TfaSetupForm = ({
             ) : (
                 <>
                     {/* Notice */}
-                    <p className="max-w-64 text-sm text-center opacity-75">
+                    <p className="max-w-64 text-sm text-center opacity-75 select-none">
                         Enter the 6-digit pin provided by your authenticator app
                         below to enable two-factor authentication!
                     </p>

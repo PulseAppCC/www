@@ -196,7 +196,7 @@ const TFASetting = (): ReactElement => {
 
                         {/* Notice */}
                         {!enabledTfa && (
-                            <DialogFooter className="sm:justify-center gap-1.5 text-sm opacity-75">
+                            <DialogFooter className="sm:justify-center gap-1.5 text-sm opacity-75 select-none">
                                 <b>NOTE:</b>Enabling two-factor auth will log
                                 you out of all other devices.
                             </DialogFooter>
@@ -216,7 +216,9 @@ const QRCode = ({
     <div className="px-2 py-6 flex flex-col gap-4 items-center">
         <QRCodeCanvas size={156} value={tfaResponse.qrCodeUrl} />
         <div className="flex flex-col gap-1 items-center">
-            <p className="opacity-75">Or manually copy this code...</p>
+            <p className="opacity-75 select-none">
+                Or manually copy this code...
+            </p>
             <Input className="mx-14" value={tfaResponse.secret} readOnly />
         </div>
     </div>

@@ -64,7 +64,7 @@ const OrganizationLogo = ({
             />
         ) : (
             <InitialsAvatar
-                className="-translate-y-0.5 w-[1.6rem] h-[1.6rem] flex justify-center items-center bg-muted rounded-full"
+                className="-translate-y-0.5 w-[130%] h-[130%] flex justify-center items-center bg-muted rounded-full"
                 name={organization.name}
             />
         )}

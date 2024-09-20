@@ -16,7 +16,10 @@ const UserBillingPage = (): ReactElement => (
         {/* Content */}
         <div className="flex flex-col gap-5">
             <Separator className="opacity-65" />
-            Billing
+            <p className="opacity-75 select-none pointer-events-none">
+                Billing is not yet available, this will be available to cloud
+                environments.
+            </p>
         </div>
     </main>
 );
