@@ -27,6 +27,7 @@ import { Session } from "@/app/types/user/session";
 import { apiRequest } from "@/lib/api";
 import UserMenuLinks from "@/components/dashboard/sidebar/user-menu/user-menu-links";
 import { UserMenuLink } from "@/app/types/dashboard/user-menu-link";
+import SimpleTooltip from "@/components/simple-tooltip";
 
 export const userMenuLinks: UserMenuLink[] = [
     {
@@ -77,10 +78,12 @@ const UserMenu = (): ReactElement => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <div className="px-5 py-2 flex gap-2.5 items-center font-medium bg-background/30 border hover:opacity-75 rounded-lg transition-all transform-gpu">
-                    <UserAvatar user={user as User} size="sm" />@
-                    {user?.username}
-                </div>
+                <SimpleTooltip content="My account">
+                    <div className="px-5 py-2 flex gap-2.5 items-center font-medium bg-background/30 border hover:opacity-75 rounded-lg transition-all transform-gpu">
+                        <UserAvatar user={user as User} size="sm" />@
+                        {user?.username}
+                    </div>
+                </SimpleTooltip>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-44">
                 {/* Content */}

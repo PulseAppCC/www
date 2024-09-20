@@ -20,7 +20,7 @@ const StatusPageList = (): ReactElement => {
         (state: OrganizationState) => state.selected
     );
     return (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-3">
             {/* Create */}
             <SimpleTooltip content="Create a new status page">
                 <Button className="w-24" variant="outline" size="sm" disabled>
