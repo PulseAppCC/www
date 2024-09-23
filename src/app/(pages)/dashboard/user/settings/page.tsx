@@ -12,7 +12,7 @@ import DashboardHeader from "@/components/dashboard/dashboard-header";
  * @return the page jsx
  */
 const UserSettingsPage = (): ReactElement => (
-    <main className="w-[47rem] flex flex-col gap-5">
+    <main className="max-w-[47rem] flex flex-col gap-5">
         <DashboardHeader title="Settings" />
 
         {/* Content */}
