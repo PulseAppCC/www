@@ -23,7 +23,7 @@ const Sidebar = (): ReactElement => {
         (state: UserState) => state.user
     );
     return hasFlag(user as User, UserFlag.COMPLETED_ONBOARDING) ? (
-        <nav className="w-56 px-3 py-4 h-screen flex flex-col items-center bg-zinc-900 border-r">
+        <nav className="w-16 md:w-56 px-3 py-4 h-screen flex flex-col items-center bg-zinc-900 border-r transition-all transform-gpu">
             {/* Header */}
             <Link
                 className="flex gap-4 items-center select-none group"
@@ -31,11 +31,11 @@ const Sidebar = (): ReactElement => {
                 draggable={false}
             >
                 <Branding size="xs" />
-                <h1 className="text-2xl font-bold group-hover:opacity-75 transition-all transform-gpu">
+                <h1 className="hidden opacity-0 md:flex md:opacity-100 text-2xl font-bold group-hover:opacity-75 transition-all transform-gpu">
                     Pulse App
                 </h1>
             </Link>
-            <Separator className="w-48 my-3.5" />
+            <Separator className="w-12 md:w-48 my-3.5 transition-all transform-gpu" />
 
             {/* Content */}
             <OrganizationSelector />

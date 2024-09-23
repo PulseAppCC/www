@@ -53,23 +53,25 @@ const OrganizationSelector = (): ReactElement => {
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
                 <Button
-                    className="w-52 bg-background/30 justify-between"
+                    className="px-1.5 w-14 md:w-52 md:px-4 bg-background/30 justify-between transition-all transform-gpu"
                     aria-expanded={open}
                     variant="outline"
                     role="combobox"
                 >
                     {selected ? (
-                        <div className="flex gap-3.5 items-center">
+                        <div className="flex gap-1 items-center">
                             <OrganizationLogo
                                 organization={selected}
                                 size="sm"
                             />
-                            {selected.name}
+                            <span className="hidden md:flex">
+                                {selected.name}
+                            </span>
                         </div>
                     ) : (
                         "Select organization..."
                     )}
-                    <ChevronsUpDownIcon className="ml-2 w-4 h-4 shrink-0 opacity-50" />
+                    <ChevronsUpDownIcon className="md:ml-2 w-4 h-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-56 p-0">

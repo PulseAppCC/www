@@ -5,15 +5,7 @@ import { SidebarLink } from "@/app/types/dashboard/sidebar-link";
 import SimpleTooltip from "@/components/simple-tooltip";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import {
-    ChartBarSquareIcon,
-    ClipboardIcon,
-    Cog6ToothIcon,
-    FireIcon,
-    HomeIcon,
-    PencilSquareIcon,
-    WrenchIcon,
-} from "@heroicons/react/24/outline";
+import { ClipboardIcon, HomeIcon } from "@heroicons/react/24/outline";
 import { useOrganizationContext } from "@/app/provider/organization-provider";
 import { OrganizationState } from "@/app/store/organization-store";
 import { usePathname } from "next/navigation";
@@ -30,31 +22,31 @@ const links: SidebarLink[] = [
         icon: <ClipboardIcon />,
         href: "/dashboard/org/status-pages",
     },
-    {
-        name: "Automations",
-        icon: <WrenchIcon />,
-        href: "/dashboard/org/automations",
-    },
-    {
-        name: "Incidents",
-        icon: <FireIcon />,
-        href: "/dashboard/org/incidents",
-    },
-    {
-        name: "Insights",
-        icon: <ChartBarSquareIcon />,
-        href: "/dashboard/org/insights",
-    },
-    {
-        name: "Audit Logs",
-        icon: <PencilSquareIcon />,
-        href: "/dashboard/org/audit",
-    },
-    {
-        name: "Settings",
-        icon: <Cog6ToothIcon />,
-        href: "/dashboard/org/settings",
-    },
+    // {
+    //     name: "Automations",
+    //     icon: <WrenchIcon />,
+    //     href: "/dashboard/org/automations",
+    // },
+    // {
+    //     name: "Incidents",
+    //     icon: <FireIcon />,
+    //     href: "/dashboard/org/incidents",
+    // },
+    // {
+    //     name: "Insights",
+    //     icon: <ChartBarSquareIcon />,
+    //     href: "/dashboard/org/insights",
+    // },
+    // {
+    //     name: "Audit Logs",
+    //     icon: <PencilSquareIcon />,
+    //     href: "/dashboard/org/audit",
+    // },
+    // {
+    //     name: "Settings",
+    //     icon: <Cog6ToothIcon />,
+    //     href: "/dashboard/org/settings",
+    // },
 ];
 
 /**
@@ -87,7 +79,7 @@ const Links = (): ReactElement => {
                         >
                             <Link
                                 className={cn(
-                                    "px-3 py-2 flex gap-2 items-center text-sm rounded-lg hover:bg-zinc-800 transition-all transform-gpu",
+                                    "px-2.5 md:px-3 py-2 flex gap-2 items-center text-sm rounded-lg hover:bg-zinc-800 transition-all transform-gpu",
                                     active && "font-medium bg-zinc-800"
                                 )}
                                 href={link.href}
@@ -95,7 +87,9 @@ const Links = (): ReactElement => {
                                 <div className="relative w-5 h-5">
                                     {link.icon}
                                 </div>
-                                {link.name}
+                                <span className="hidden md:flex">
+                                    {link.name}
+                                </span>
                             </Link>
                         </SimpleTooltip>
                     );

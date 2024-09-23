@@ -79,9 +79,11 @@ const UserMenu = (): ReactElement => {
         <DropdownMenu>
             <DropdownMenuTrigger>
                 <SimpleTooltip content="My account">
-                    <div className="px-5 py-2 flex gap-2.5 items-center font-medium bg-background/30 border hover:opacity-75 rounded-lg transition-all transform-gpu">
-                        <UserAvatar user={user as User} size="sm" />@
-                        {user?.username}
+                    <div className="px-2.5 md:px-5 py-2 flex gap-2.5 items-center font-medium bg-background/30 border hover:opacity-75 rounded-lg transition-all transform-gpu">
+                        <UserAvatar user={user as User} size="sm" />
+                        <span className="hidden md:flex">
+                            @{user?.username}
+                        </span>
                     </div>
                 </SimpleTooltip>
             </DropdownMenuTrigger>
