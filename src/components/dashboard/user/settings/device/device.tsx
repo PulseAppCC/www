@@ -7,15 +7,29 @@ import { DateTime } from "luxon";
 import {
     ArrowLeftEndOnRectangleIcon,
     ComputerDesktopIcon,
+    DevicePhoneMobileIcon,
+    DeviceTabletIcon,
+    QuestionMarkCircleIcon,
 } from "@heroicons/react/24/outline";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import SimpleTooltip from "@/components/simple-tooltip";
+import Image from "next/image";
 
 const deviceIcons = {
     DESKTOP: <ComputerDesktopIcon />,
-    TABLET: <ComputerDesktopIcon />,
-    PHONE: <ComputerDesktopIcon />,
-    UNKNOWN: <ComputerDesktopIcon />,
+    TABLET: <DeviceTabletIcon />,
+    PHONE: <DevicePhoneMobileIcon />,
+    UNKNOWN: <QuestionMarkCircleIcon />,
+};
+
+const browserIcons = {
+    FIREFOX: "firefox.svg",
+    EDGE: "edge.svg",
+    CHROME: "firefox.svg",
+    SAFARI: "safari.svg",
+    SAMSUNGBROWSER: "samsung.svg",
+    UNKNOWN: <QuestionMarkCircleIcon />,
 };
 
 const Device = ({
@@ -28,6 +42,7 @@ const Device = ({
     const [timeSinceFirstLogin, setTimeSinceFirstLogin] = useState(
         DateTime.fromISO(device.firstLogin.toString()).toRelative()
     );
+    const browserIcon: ReactElement | string = browserIcons[device.browserType];
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -45,6 +60,18 @@ const Device = ({
                 <div className="relative w-6 h-6">
                     {deviceIcons[device.type]}
                 </div>
+                <div className="absolute bottom-0 right-0 w-3.5 h-3.5">
+                    {typeof browserIcon === "string" ? (
+                        <Image
+                            src={`/media/browsers/${browserIcon}`}
+                            alt={`The ${capitalizeWords(device.browserType)} browser icon`}
+                            fill
+                            draggable={false}
+                        />
+                    ) : (
+                        browserIcon
+                    )}
+                </div>
             </div>
 
             {/* Name & Location */}
@@ -53,10 +80,12 @@ const Device = ({
                     {capitalizeWords(device.type)} ·{" "}
                     {capitalizeWords(device.browserType)}
                 </h1>
-                <p className="opacity-75">
-                    {device.location ?? "Unknown Location"} ·{" "}
-                    {timeSinceFirstLogin}
-                </p>
+                <SimpleTooltip content={`IP Address: ${device.ip}`}>
+                    <p className="opacity-75">
+                        {device.location ?? "Unknown Location"} ·{" "}
+                        {timeSinceFirstLogin}
+                    </p>
+                </SimpleTooltip>
             </div>
 
             {/* Corner Content */}

@@ -1,13 +1,12 @@
 "use client";
 
 import { ReactElement } from "react";
-import { Button } from "@/components/ui/button";
-import SimpleTooltip from "@/components/simple-tooltip";
 import { Organization } from "@/app/types/org/organization";
 import { useOrganizationContext } from "@/app/provider/organization-provider";
 import { OrganizationState } from "@/app/store/organization-store";
 import { StatusPage as StatusPageType } from "@/app/types/page/status-page";
 import StatusPage from "@/components/dashboard/org/status-page/status-page";
+import CreateStatusPageDialog from "@/components/dashboard/org/status-page/create-status-page-dialog";
 
 /**
  * A list of status pages for the
@@ -22,11 +21,9 @@ const StatusPageList = (): ReactElement => {
     return (
         <div className="flex flex-col gap-3">
             {/* Create */}
-            <SimpleTooltip content="Create a new status page">
-                <Button className="w-24" variant="outline" size="sm" disabled>
-                    Create
-                </Button>
-            </SimpleTooltip>
+            <div>
+                <CreateStatusPageDialog />
+            </div>
 
             {/* Status Pages */}
             {organization?.statusPages.map(
