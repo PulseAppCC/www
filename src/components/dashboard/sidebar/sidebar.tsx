@@ -30,7 +30,7 @@ const Sidebar = (): ReactElement => {
                 href="/dashboard"
                 draggable={false}
             >
-                <Branding size="xs" />
+                <Branding className="pointer-events-none" size="xs" />
                 <h1 className="hidden opacity-0 md:flex md:opacity-100 text-2xl font-bold group-hover:opacity-75 transition-all transform-gpu">
                     Pulse App
                 </h1>
