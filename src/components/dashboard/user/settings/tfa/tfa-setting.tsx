@@ -101,9 +101,9 @@ const TFASetting = (): ReactElement => {
     };
 
     return (
-        <div className="px-5 flex items-center">
+        <div className="flex flex-col gap-3 xs:flex-row items-start xs:items-center">
             {/* Name & Description */}
-            <div className="w-96 flex flex-col gap-0.5 select-none pointer-events-none">
+            <div className="w-80 md:w-96 flex flex-col gap-0.5 select-none pointer-events-none transition-all transform-gpu">
                 <h1 className="text-lg font-bold">Two-Factor Auth</h1>
                 <p className="max-w-64 text-sm opacity-75">
                     Enhance your account security with an extra layer of

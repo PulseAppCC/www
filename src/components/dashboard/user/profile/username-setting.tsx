@@ -16,9 +16,9 @@ const UsernameSetting = (): ReactElement => {
         (state: UserState) => state.user
     );
     return (
-        <div className="px-5 flex items-center">
+        <div className="flex flex-col gap-3 lg:flex-row items-start lg:items-center">
             {/* Name & Description */}
-            <div className="w-96 flex flex-col gap-0.5 select-none pointer-events-none">
+            <div className="w-96 flex flex-col gap-0.5 select-none pointer-events-none transition-all transform-gpu">
                 <h1 className="text-lg font-bold">Username</h1>
                 <p className="max-w-64 text-sm opacity-75">
                     The username used to identify you on the app.
@@ -27,7 +27,7 @@ const UsernameSetting = (): ReactElement => {
 
             {/* Setting */}
             <Input
-                className="w-60 rounded-lg select-none"
+                className="max-w-60 rounded-lg select-none"
                 value={user?.username}
                 disabled
             />

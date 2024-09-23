@@ -41,18 +41,18 @@ const DevicesSetting = (): ReactElement => {
     }, [fetchDevices]);
 
     return (
-        <div className="px-5 flex flex-col gap-3.5 justify-center">
+        <div className="flex flex-col gap-3.5 justify-center">
             {/* Name & Description */}
-            <div className="w-96 flex flex-col gap-0.5 select-none pointer-events-none">
+            <div className="max-w-96 flex flex-col gap-0.5 select-none pointer-events-none">
                 <h1 className="text-lg font-bold">Devices</h1>
-                <p className="w-[25rem] text-sm opacity-75">
+                <p className="max-w-[15rem] text-sm opacity-75">
                     Here is a list of devices logged into your Pulse App
                     account.
                 </p>
             </div>
 
             {/* Setting */}
-            <div className="w-[27.7rem] flex flex-col gap-2">
+            <div className="max-w-[27.7rem] flex flex-col gap-2">
                 {!devices ? (
                     <>
                         {Array.from({ length: 4 }, (_, index) => (
